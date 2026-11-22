@@ -1,0 +1,61 @@
+\section{Trabajos relacionados}
+\label{sec:trabajos-relacionados}
+
+\subsection{Módulo de ayudantías de cátedra del SAI (Universidad Técnica de Babahoyo)}
+
+Baldeón Navarrete~\cite{baldeon2022sai} analiza el proceso de ayudantías de cátedra de la Universidad Técnica de Babahoyo y propone un módulo para su Sistema Académico Integral (SAI). Los requisitos se levantaron con entrevistas y la incidencia del módulo en el proceso académico se contrastó con la prueba de chi cuadrado. El trabajo llega hasta el análisis y el diseño, sin implementación.
+
+\textbf{Lo que toma el SGAC.} La validación de los datos académicos del postulante a partir del sistema institucional, en lugar de certificados entregados a mano.
+
+\textbf{En qué se diferencia.} La propuesta de Babahoyo es un módulo dentro del sistema académico. El SGAC es un sistema independiente que solo consulta al SGA de la UTEQ, sin escribir en él (RNF-10), de modo que una falla del SGA no detenga la recepción de postulaciones (RNF-04).
+
+\subsection{Aplicativo web de gestión de monitores basado en microservicios (Universidad de Córdoba)}
+
+Paternina Pertuz y Pernett Caballero~\cite{paternina2023monitores} desarrollan una aplicación web para asignar monitores académicos y dar seguimiento a sus actividades, construida con microservicios en Java y TypeScript.
+
+\textbf{Lo que toma el SGAC.} La separación en servicios de capacidades como la asignación y el seguimiento de los estudiantes que apoyan la docencia.
+
+\textbf{En qué se diferencia.} La monitoría no incluye un concurso de méritos y oposición con actas, y el trabajo no muestra integración con un sistema académico. Además, el SGAC limita el número de servicios: la ventaja de los microservicios en escalabilidad depende del despliegue~\cite{blinowski2022monolithic} y su complejidad dificulta el diseño, el monitoreo y las pruebas~\cite{waseem2021design}.
+
+\subsection{Programa de ayudantías de cátedra de la UNAE}
+
+Uyaguari, Orozco Malo y Durán Agudelo~\cite{uyaguari2022unae} describen la primera convocatoria del programa de ayudantías de la Universidad Nacional de Educación. Los docentes solicitan ayudantes, la selección se hace por mérito y el ayudante registra horas y evidencias en un módulo del sistema académico, que genera reportes y el certificado. En esa convocatoria, 48 docentes solicitaron ayudantes para 93 asignaturas, se recibieron 339 postulaciones y se asignaron ayudantes en 60 asignaturas.
+
+\textbf{Lo que toma el SGAC.} El registro de horas y evidencias con emisión del certificado, y el volumen de postulaciones como referencia para la capacidad del sistema (RNF-02).
+
+\textbf{En qué se diferencia.} El artículo describe el programa, no la arquitectura del software, y la selección no incluye una prueba de oposición.
+
+\subsection{Comparación}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Comparación de los trabajos relacionados con el SGAC}
+  \label{tab:trabajos-relacionados}
+  \small
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.4cm}
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Trabajo} & \textbf{Etapas cubiertas} & \textbf{Integración con el sistema académico} & \textbf{Arquitectura} \\
+    \midrule
+    Baldeón Navarrete~\cite{baldeon2022sai}
+      & Proceso de ayudantías (análisis y diseño)
+      & Módulo dentro del SAI
+      & Módulo de un sistema existente; sin implementación \\
+    Paternina Pertuz y Pernett Caballero~\cite{paternina2023monitores}
+      & Asignación de monitores y seguimiento de actividades
+      & No descrita
+      & Microservicios (Java y TypeScript) \\
+    Uyaguari et al.~\cite{uyaguari2022unae}
+      & Solicitud, selección por mérito, registro de horas y evidencias, certificado
+      & Módulo del sistema académico de la UNAE
+      & No descrita \\
+    \midrule
+    SGAC
+      & Convocatoria, postulación, méritos y oposición, ejecución, seguimiento y certificación
+      & Consulta de solo lectura al SGA de la UTEQ (RNF-10)
+      & Distribuida (ADR-001) \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
