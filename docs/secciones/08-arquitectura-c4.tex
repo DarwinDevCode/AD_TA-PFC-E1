@@ -41,7 +41,7 @@ La Figura~\ref{fig:c4-contexto} presenta el SGAC como un único sistema, las sei
 
 \subsection{Nivel 2: contenedores}
 
-La Figura~\ref{fig:c4-contenedores} descompone el SGAC según ADR-001 y ADR-002. Las flechas continuas son interacciones sincrónicas y las discontinuas, asincrónicas; cada una lleva el identificador que usa el modelo de comunicación. El SGA se representa con un servicio simulado de solo lectura. El servicio de IA y la firma electrónica no tienen contenedores porque quedan fuera del alcance de E1 a E4. Los servicios del esqueleto corresponden a las carpetas \texttt{src/servicio-a-elegibilidad/} y \texttt{src/servicio-b-postulaciones/}; postulaciones usa Python con FastAPI y una base SQLite. La Tabla~\ref{tab:c4-contenedores} resume la responsabilidad de cada contenedor.
+La Figura~\ref{fig:c4-contenedores} descompone el SGAC según ADR-001 y ADR-002. Las flechas continuas son interacciones sincrónicas y las discontinuas, asincrónicas; cada una lleva el identificador que usa el modelo de comunicación. El SGA se representa con un servicio simulado de solo lectura, cuyo contrato está en \path{src/contrato/sga-simulado-v1.yaml}. El servicio de IA y la firma electrónica no tienen contenedores porque quedan fuera del alcance de E1 a E4. Los servicios del esqueleto corresponden a las carpetas \path{src/servicio-a-elegibilidad/} y \path{src/servicio-b-postulaciones/}; ambos usan Python con FastAPI, y postulaciones guarda sus datos en SQLite. La Tabla~\ref{tab:c4-contenedores} resume la responsabilidad de cada contenedor.
 
 \begin{figure}[p]
   \centering
@@ -67,7 +67,7 @@ La Figura~\ref{fig:c4-contenedores} descompone el SGAC según ADR-001 y ADR-002.
     Elegibilidad (servicio A) & Consulta de solo lectura de matrícula, nota y promedio en el SGA & Ninguno & RF-03, RNF-04, RNF-10 \\
     Evaluación & Méritos, oposición, consolidación y publicación de resultados & BD evaluación & RF-06, RF-07, RF-08 \\
     Seguimiento & Planificación semanal, sesiones, informes y certificado & BD seguimiento & RF-09 a RF-12 \\
-    Intermediario de mensajes & Recibe los eventos de cambio de estado y los entrega a sus consumidores & Eventos pendientes de entrega & RNF-03, RNF-11 \\
+    Intermediario de mensajes (RabbitMQ) & Recibe los eventos de cambio de estado y los entrega a sus consumidores & Eventos pendientes de entrega & RNF-03, RNF-11 \\
     Notificaciones & Envía los avisos por rol a la mensajería institucional & Ninguno & RF-05, RF-08, RF-11 \\
     \bottomrule
   \end{tabularx}

@@ -22,20 +22,20 @@ I-02 & Aplicación web & Postulaciones & Sincrónica & REST & El estudiante ve e
 I-03 & Aplicación web & Evaluación & Sincrónica & REST & La comisión necesita confirmar que cada puntaje quedó registrado o rechazado (RF-06, RF-07). \\ \addlinespace
 I-04 & Aplicación web & Seguimiento & Sincrónica & REST & La planificación se acepta o se rechaza en el momento si supera 20 horas semanales o se solapa (RF-10); las aprobaciones del informe final habilitan el certificado (RF-11, RF-12). \\ \addlinespace
 I-05 & Postulaciones & Elegibilidad & Sincrónica & REST & Cada requisito se registra como «Cumple» o «No cumple» con la fecha de consulta (RF-03). Interacción del esqueleto; su contrato está en \texttt{src/contrato/}. \\ \addlinespace
-I-06 & Elegibilidad & SGA (simulado) & Sincrónica & REST, solo lectura & Elegibilidad solo lee del SGA (RNF-10) y responde 503 si el SGA no contesta en 2\,s (RNF-04). \\ \addlinespace
+I-06 & Elegibilidad & SGA (simulado) & Sincrónica & REST, solo lectura & Elegibilidad solo lee del SGA (RNF-10) y responde 503 si el SGA no contesta en 2\,s (RNF-04). Contrato en \texttt{src/contrato/}. \\ \addlinespace
 I-07 & Evaluación & Postulaciones & Sincrónica & REST & La consolidación usa las postulaciones validadas en el momento de calcular el orden de mérito (RF-08). \\ \addlinespace
-I-08 & Postulaciones & Intermediario & Asincrónica & Mensajería & Cada cambio de estado genera un aviso (RF-05) sin esperar a que se entregue; el evento se guarda antes de publicarse. \\ \addlinespace
-I-09 & Evaluación & Intermediario & Asincrónica & Mensajería & Las citaciones a la oposición (RF-07) y la publicación de resultados (RF-08) se notifican a los postulantes. \\ \addlinespace
-I-10 & Seguimiento & Intermediario & Asincrónica & Mensajería & El resultado de la revisión del informe se avisa al ayudante (RF-11). \\ \addlinespace
-I-11 & Intermediario & Notificaciones & Asincrónica & Mensajería & Si notificaciones está detenido, los eventos esperan en la cola y la recepción de postulaciones sigue operando (RNF-03, RNF-11). \\ \addlinespace
-I-12 & Intermediario & Seguimiento & Asincrónica & Mensajería & Seguimiento crea las ayudantías a partir de los resultados publicados sin consultar a evaluación en línea. \\ \addlinespace
+I-08 & Postulaciones & Intermediario & Asincrónica & RabbitMQ & Cada cambio de estado genera un aviso (RF-05) sin esperar a que se entregue; el evento se guarda antes de publicarse. \\ \addlinespace
+I-09 & Evaluación & Intermediario & Asincrónica & RabbitMQ & Las citaciones a la oposición (RF-07) y la publicación de resultados (RF-08) se notifican a los postulantes. \\ \addlinespace
+I-10 & Seguimiento & Intermediario & Asincrónica & RabbitMQ & El resultado de la revisión del informe se avisa al ayudante (RF-11). \\ \addlinespace
+I-11 & Intermediario & Notificaciones & Asincrónica & RabbitMQ & Si notificaciones está detenido, los eventos esperan en la cola y la recepción de postulaciones sigue operando (RNF-03, RNF-11). \\ \addlinespace
+I-12 & Intermediario & Seguimiento & Asincrónica & RabbitMQ & Seguimiento crea las ayudantías a partir de los resultados publicados sin consultar a evaluación en línea. \\ \addlinespace
 I-13 & Notificaciones & Mensajería institucional & Asincrónica & Según la interfaz institucional & Los avisos llegan al correo institucional (RF-05); en E1 a E4 el envío es simulado. \\
 \end{longtable}
 \endgroup
 
 \subsection{Interacción del esqueleto (I-05)}
 
-Elegibilidad atiende en el puerto 8081 la operación
+En el esqueleto, postulaciones, elegibilidad y el SGA simulado se ejecutan en los puertos 8080, 8081 y 8090. Elegibilidad atiende la operación
 \begin{center}
 \texttt{GET /api/v1/estudiantes/\{estudianteId\}/elegibilidad?asignatura=\{código\}}
 \end{center}
