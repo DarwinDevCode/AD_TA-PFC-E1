@@ -5,58 +5,73 @@
 \section{Esqueleto funcional}
 \label{sec:esqueleto-funcional}
 
-\textbf{Estado del borrador.} Ya se prepararon los casos y los datos
-sintéticos. El mecanismo de comunicación, el contrato de interfaz y los
-resultados de las pruebas están pendientes.
+\textbf{Estado del borrador.} El contrato OpenAPI de elegibilidad está
+publicado como \texttt{1.0.0-propuesto} y los casos de prueba ya se
+adaptaron a esa versión. Quedan pendientes la aprobación del ADR-002,
+la implementación y los resultados de las pruebas.
 
 \subsection{Servicios y flujo previsto}
 
-El esqueleto de E1 demostrará una consulta de elegibilidad académica entre
-dos servicios, según la propuesta del ADR-001. El servicio B
-(postulaciones) solicitará al servicio A (elegibilidad) la verificación
-académica de un estudiante para una asignatura (RF-03). Elegibilidad
-consultará datos de un SGA simulado de solo lectura y devolverá el
-resultado a postulaciones. Los datos sintéticos permiten preparar
-escenarios de matrícula, nota de la asignatura y comparación de
-promedios.
+En la interacción I-05, el servicio de postulaciones
+(\path{servicio-b-postulaciones}) solicitará la verificación académica de
+un estudiante para una asignatura (RF-03). El servicio de elegibilidad
+(\path{servicio-a-elegibilidad}) consultará el SGA simulado en modo de
+solo lectura (RNF-10) y devolverá los resultados de matrícula, nota y
+promedio. Las instrucciones de arranque y prueba
+se incorporarán a la sección «Ejecución del esqueleto» del
+\texttt{README.md} cuando los servicios estén disponibles.
 
-El mecanismo con el que se realizará el intercambio se documentará cuando
-se apruebe el ADR-002. El contrato definirá la operación, sus datos de
-entrada y salida y el tratamiento de respuestas incompletas o de
-indisponibilidad del SGA simulado. Las rutas definitivas de los servicios
-se confirmarán con el C4 de contenedores. Las instrucciones de arranque y
-ejecución se documentarán en la sección «Ejecución del esqueleto» del
-\texttt{README.md}.
+\subsection{Contrato OpenAPI propuesto}
 
-\subsection{Archivos y verificación prevista}
+El archivo \path{src/contrato/elegibilidad-v1.yaml} describe un
+intercambio REST sobre HTTP con JSON. La URL base local propuesta es
+\url{http://localhost:8081/api/v1}. El contrato declara dos operaciones
+de lectura:
 
 \begin{itemize}
-  \item \texttt{src/contrato/}: carpeta prevista para el contrato de
-    interfaz, pendiente de publicación.
-  \item \path{src/pruebas/casos-servicio-a.md}: borrador de 11 casos y
-    8 registros sintéticos. Incluye consultas con datos completos,
-    valores límite, registros faltantes y caída y recuperación del
-    SGA simulado.
-  \item \path{src/pruebas/matriz-pruebas-rnf.md}: criterios de
-    verificación de los requisitos no funcionales. Para este flujo se
-    prevé verificar la conservación de la postulación durante una
-    interrupción (RNF-04) y la ausencia de escrituras hacia el SGA
-    (RNF-10).
+  \item \texttt{GET} \path{/salud} comprueba que elegibilidad está en
+    ejecución.
+  \item \texttt{GET} \path{/estudiantes/{estudianteId}/elegibilidad}
+    evalúa los requisitos académicos. La operación recibe
+    \texttt{estudianteId} en la ruta y el código obligatorio
+    \texttt{asignatura} en la consulta.
 \end{itemize}
 
-La primera prueba de comunicación partirá del caso SA-01, con datos
-completos. Se comprobará que postulaciones recibe el resultado esperado
-de elegibilidad según el contrato. Si este contempla una respuesta de
-incumplimiento, se usará también el caso SA-03, con una nota inferior al
-mínimo. Los escenarios de interrupción y solo lectura se comprobarán
-mediante SA-10 y SA-11, respectivamente. La conservación de una
-postulación en «Validación pendiente» se verificará en postulaciones
-durante la prueba del flujo completo de RNF-04.
+La consulta de elegibilidad devuelve \texttt{200} con los resultados
+por requisito, el estado general y la fecha de consulta en UTC. Los
+códigos previstos son \texttt{400} para una asignatura ausente o
+inválida, \texttt{404} si el estudiante carece de registro y
+\texttt{503} si el SGA simulado rechaza la conexión o supera el límite
+de respuesta de 2 segundos.
+
+Para RNF-04, postulaciones esperará hasta 3 segundos por la respuesta
+de elegibilidad. Ante un \texttt{503}, un error de conexión o un
+tiempo de espera agotado, conservará la postulación en «Validación
+pendiente» y repetirá la consulta cada 60 segundos hasta recibir
+\texttt{200} o \texttt{404}. Estos comportamientos corresponden al
+contrato propuesto, pendiente de ratificación con el ADR-002.
+
+\subsection{Pruebas previstas}
+
+\path{src/pruebas/casos-servicio-a.md} contiene 14 casos y 9 registros
+sintéticos. La demostración inicial usará SA-01 y SA-03 para comprobar
+que postulaciones recibe tanto un resultado elegible como uno no
+elegible por nota insuficiente. Los casos restantes cubren los valores
+límite, datos incompletos, ausencia de registro, recuperación del SGA,
+salud y el parámetro obligatorio de asignatura.
+
+SA-10 se usará para comprobar la respuesta de elegibilidad ante una
+interrupción. La conservación de la postulación y el reintento se
+comprobarán en la prueba entre ambos servicios (RNF-04). SA-11
+verificará que las consultas generan cero escrituras hacia el SGA
+simulado (RNF-10). Los criterios de estos requisitos están en
+\path{src/pruebas/matriz-pruebas-rnf.md}.
 
 \subsection{Resultados y evidencias}
 
-\textbf{Pendientes de ejecución.} Para cada ensayo se registrarán la
-versión probada, el caso, el resultado esperado, el resultado observado
-y la evidencia. Las capturas originales se guardarán en
-\texttt{evidencias/capturas/} y mostrarán ambos servicios en marcha,
-el intercambio, el usuario, el equipo y la fecha y hora del sistema.
+\textbf{Pendientes de ejecución.} Por cada caso se registrarán la versión
+del contrato, la solicitud, el estado HTTP, el resultado esperado, el
+resultado observado y el tiempo medido cuando corresponda. Las
+capturas originales se guardarán en \texttt{evidencias/capturas/} y
+mostrarán ambos servicios en marcha, el intercambio, el usuario, el
+equipo y la fecha y hora del sistema.
