@@ -1,5 +1,65 @@
-% Responsable: SANCHEZ VERA DARWIN JOEL.
-% Exigencia: explicar interacciones sincrónicas y asincrónicas, protocolos,
-% tiempos de espera, errores y decisiones de comunicacion.
-% Utilizar solo mediciones de PE-U1 disponibles; no inventar resultados.
-\section{Modelo de comunicación}
+\section{Modelo de comunicación entre servicios}
+\label{sec:modelo-comunicacion}
+
+La Tabla~\ref{tab:comunicacion} describe las interacciones del diagrama de contenedores con los mecanismos propuestos en ADR-002, cuyo estado es «Propuesto». Las interacciones I-02 a I-07 son sincrónicas porque el usuario o el servicio que llama necesita el resultado para continuar. Las interacciones I-08 a I-13 son asincrónicas porque avisan de un cambio que ya quedó registrado.
+
+\begingroup
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.06\linewidth}>{\raggedright\arraybackslash}p{.15\linewidth}>{\raggedright\arraybackslash}p{.15\linewidth}>{\raggedright\arraybackslash}p{.13\linewidth}>{\raggedright\arraybackslash}p{.12\linewidth}>{\raggedright\arraybackslash}p{.23\linewidth}@{}}
+\caption{Interacciones del SGAC}\label{tab:comunicacion}\\
+\toprule
+ID & Origen & Destino & Tipo & Mecanismo & Justificación \\
+\midrule
+\endfirsthead
+\toprule
+ID & Origen & Destino & Tipo & Mecanismo & Justificación \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+I-01 & Usuarios & Aplicación web & Sincrónica & HTTPS & Acceso desde Chrome, Firefox y Edge (RNF-12) con conexiones cifradas (RNF-08). \\ \addlinespace
+I-02 & Aplicación web & Postulaciones & Sincrónica & REST & El estudiante ve el estado «Enviada» al enviar (RF-02) y el último estado registrado al consultar (RF-05, RNF-01). \\ \addlinespace
+I-03 & Aplicación web & Evaluación & Sincrónica & REST & La comisión necesita confirmar que cada puntaje quedó registrado o rechazado (RF-06, RF-07). \\ \addlinespace
+I-04 & Aplicación web & Seguimiento & Sincrónica & REST & La planificación se acepta o se rechaza en el momento si supera 20 horas semanales o se solapa (RF-10). \\ \addlinespace
+I-05 & Postulaciones & Elegibilidad & Sincrónica & REST & Cada requisito se registra como «Cumple» o «No cumple» con la fecha de consulta (RF-03). Interacción del esqueleto; su contrato está en \texttt{src/contrato/}. \\ \addlinespace
+I-06 & Elegibilidad & SGA (simulado) & Sincrónica & REST, solo lectura & Elegibilidad solo lee del SGA (RNF-10) y responde 503 si el SGA no contesta en 2\,s (RNF-04). \\ \addlinespace
+I-07 & Evaluación & Postulaciones & Sincrónica & REST & La consolidación usa las postulaciones validadas en el momento de calcular el orden de mérito (RF-08). \\ \addlinespace
+I-08 & Postulaciones & Intermediario & Asincrónica & Mensajería & Cada cambio de estado genera un aviso (RF-05) sin esperar a que se entregue. \\ \addlinespace
+I-09 & Evaluación & Intermediario & Asincrónica & Mensajería & La publicación de resultados se notifica a todos los postulantes (RF-08). \\ \addlinespace
+I-10 & Seguimiento & Intermediario & Asincrónica & Mensajería & El resultado de la revisión del informe se avisa al ayudante (RF-11). \\ \addlinespace
+I-11 & Intermediario & Notificaciones & Asincrónica & Mensajería & Si notificaciones está detenido, los eventos esperan en la cola y la recepción de postulaciones sigue operando (RNF-03, RNF-11). \\ \addlinespace
+I-12 & Intermediario & Seguimiento & Asincrónica & Mensajería & Seguimiento crea las ayudantías a partir de los resultados publicados sin consultar a evaluación en línea. \\ \addlinespace
+I-13 & Notificaciones & Mensajería institucional & Asincrónica & Según la interfaz institucional & Los avisos llegan al correo institucional (RF-05); en E1 a E4 el envío es simulado. \\
+\end{longtable}
+\endgroup
+
+\subsection{Interacción del esqueleto (I-05)}
+
+Elegibilidad atiende en el puerto 8081 la operación
+\begin{center}
+\texttt{GET /api/v1/estudiantes/\{estudianteId\}/elegibilidad?asignatura=\{código\}}
+\end{center}
+La Tabla~\ref{tab:respuestas-i05} resume cómo actúa postulaciones ante cada respuesta.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Respuestas de elegibilidad en I-05}
+  \label{tab:respuestas-i05}
+  \small
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.1cm}
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Respuesta} & \textbf{Significado} & \textbf{Acción de postulaciones} \\
+    \midrule
+    200 & El SGA respondió; cada requisito es «Cumple», «No cumple» o «Dato faltante» & Registra los resultados y la fecha de consulta \\
+    404 & El SGA no tiene registro del estudiante & Registra que no hay datos académicos; no reintenta \\
+    503 & El SGA no respondió en 2\,s & Registra «Validación pendiente» y repite la consulta cada 60\,s (RNF-04) \\
+    Sin respuesta en 3\,s & Elegibilidad no está disponible & Igual que 503 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Mediciones de PE-U1}
+
+Las mediciones disponibles provienen de la práctica PE-U1 del equipo CMSZ, en la que participó el Arquitecto; los demás integrantes no registraron mediciones. Se tomaron en una sola máquina, sobre la interfaz local, con 500 envíos por combinación\footnote{\url{https://github.com/jcedenoi4/GA-SUM-02}}. En la combinación más lenta, cargas de 10\,KiB en modo concurrente, gRPC tuvo un tiempo de ida y vuelta medio de 0,91\,ms y un percentil 95 de 2,09\,ms; TCP, 0,57\,ms y 0,85\,ms. La diferencia entre protocolos no supera 0,6\,ms en promedio, muy por debajo del umbral de 300\,ms de RNF-01, por lo que no decide el mecanismo. PE-U1 no midió REST ni mensajería; el esqueleto medirá la latencia de I-05 para comprobar RNF-01.

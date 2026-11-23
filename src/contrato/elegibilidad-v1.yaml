@@ -1,0 +1,237 @@
+openapi: 3.0.3
+info:
+  title: Servicio de elegibilidad del SGAC
+  version: 1.0.0-propuesto
+  description: |
+    Contrato de la interacción I-05: el servicio de postulaciones (servicio B, `servicio-b-postulaciones`)
+    consulta al servicio de elegibilidad (servicio A, `servicio-a-elegibilidad`) los requisitos académicos
+    del estudiante registrados en el SGA (RF-03).
+
+    Estado: propuesto con ADR-002. Pasa a vigente cuando el equipo acepte ADR-002.
+
+    Reglas del contrato:
+    - Solo se exponen operaciones de lectura; elegibilidad no escribe en el SGA (RNF-10).
+    - Requisitos de RF-03: matrícula regular; nota de la asignatura de 8,00 o más (mínimo inclusivo);
+      promedio del estudiante estrictamente mayor que el promedio de su carrera en el periodo anterior.
+    - Las notas y promedios se expresan con dos decimales.
+    - Las fechas se expresan en UTC con formato ISO 8601.
+    - Elegibilidad responde en 2 s o menos. Si el SGA no responde en ese tiempo, devuelve 503.
+    - Postulaciones espera la respuesta hasta 3 s. Ante 503, error de conexión o tiempo agotado,
+      registra la postulación en «Validación pendiente» y repite la consulta cada 60 s hasta recibir
+      200 o 404 (RNF-04).
+servers:
+  - url: http://localhost:8081/api/v1
+    description: Servicio de elegibilidad en el esqueleto de E1
+paths:
+  /salud:
+    get:
+      operationId: consultarSalud
+      summary: Indica si el servicio de elegibilidad está en ejecución.
+      responses:
+        '200':
+          description: El servicio está en ejecución.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [estado]
+                properties:
+                  estado:
+                    type: string
+                    enum: [OK]
+              example:
+                estado: OK
+  /estudiantes/{estudianteId}/elegibilidad:
+    get:
+      operationId: consultarElegibilidad
+      summary: Evalúa los requisitos académicos de un estudiante para una asignatura.
+      parameters:
+        - name: estudianteId
+          in: path
+          required: true
+          description: Identificador del estudiante en el SGA.
+          schema:
+            type: string
+            example: EST-001
+        - name: asignatura
+          in: query
+          required: true
+          description: Código de la asignatura a la que postula.
+          schema:
+            type: string
+            example: ASIG-01
+      responses:
+        '200':
+          description: El SGA respondió y se evaluaron los tres requisitos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultadoElegibilidad'
+              examples:
+                SA-01-cumple:
+                  value:
+                    estudianteId: EST-001
+                    asignatura: ASIG-01
+                    fechaConsulta: '2026-11-23T15:00:00Z'
+                    estadoGeneral: ELEGIBLE
+                    requisitos:
+                      matricula: { resultado: CUMPLE, valor: REGULAR }
+                      nota: { resultado: CUMPLE, valor: 9.25, minimo: 8.00 }
+                      promedio: { resultado: CUMPLE, valor: 8.70, promedioCarrera: 8.20 }
+                SA-02-limites:
+                  value:
+                    estudianteId: EST-002
+                    asignatura: ASIG-01
+                    fechaConsulta: '2026-11-23T15:00:00Z'
+                    estadoGeneral: ELEGIBLE
+                    requisitos:
+                      matricula: { resultado: CUMPLE, valor: REGULAR }
+                      nota: { resultado: CUMPLE, valor: 8.00, minimo: 8.00 }
+                      promedio: { resultado: CUMPLE, valor: 8.01, promedioCarrera: 8.00 }
+                SA-03-nota-inferior:
+                  value:
+                    estudianteId: EST-003
+                    asignatura: ASIG-01
+                    fechaConsulta: '2026-11-23T15:00:00Z'
+                    estadoGeneral: NO_ELEGIBLE
+                    requisitos:
+                      matricula: { resultado: CUMPLE, valor: REGULAR }
+                      nota: { resultado: NO_CUMPLE, valor: 7.99, minimo: 8.00 }
+                      promedio: { resultado: CUMPLE, valor: 8.70, promedioCarrera: 8.20 }
+                SA-04-promedios-iguales:
+                  value:
+                    estudianteId: EST-004
+                    asignatura: ASIG-01
+                    fechaConsulta: '2026-11-23T15:00:00Z'
+                    estadoGeneral: NO_ELEGIBLE
+                    requisitos:
+                      matricula: { resultado: CUMPLE, valor: REGULAR }
+                      nota: { resultado: CUMPLE, valor: 9.25, minimo: 8.00 }
+                      promedio: { resultado: NO_CUMPLE, valor: 8.20, promedioCarrera: 8.20 }
+                SA-06-matricula-no-regular:
+                  value:
+                    estudianteId: EST-006
+                    asignatura: ASIG-01
+                    fechaConsulta: '2026-11-23T15:00:00Z'
+                    estadoGeneral: NO_ELEGIBLE
+                    requisitos:
+                      matricula: { resultado: NO_CUMPLE, valor: NO_REGULAR }
+                      nota: { resultado: CUMPLE, valor: 9.25, minimo: 8.00 }
+                      promedio: { resultado: CUMPLE, valor: 8.70, promedioCarrera: 8.20 }
+                SA-08-dato-faltante:
+                  value:
+                    estudianteId: EST-008
+                    asignatura: ASIG-01
+                    fechaConsulta: '2026-11-23T15:00:00Z'
+                    estadoGeneral: INCOMPLETO
+                    requisitos:
+                      matricula: { resultado: CUMPLE, valor: REGULAR }
+                      nota: { resultado: DATO_FALTANTE, valor: null, minimo: 8.00 }
+                      promedio: { resultado: CUMPLE, valor: 8.70, promedioCarrera: 8.20 }
+        '400':
+          description: Falta el parámetro asignatura o su formato no es válido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                codigo: PARAMETRO_INVALIDO
+                mensaje: El parámetro asignatura es obligatorio.
+                fechaConsulta: '2026-11-23T15:00:00Z'
+        '404':
+          description: El SGA respondió, pero no tiene registro del estudiante (SA-09).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                codigo: ESTUDIANTE_NO_ENCONTRADO
+                mensaje: El SGA no tiene registro del estudiante EST-999.
+                fechaConsulta: '2026-11-23T15:00:00Z'
+        '503':
+          description: El SGA no respondió en 2 s o rechazó la conexión (SA-10). No es una decisión académica.
+          headers:
+            Retry-After:
+              description: Segundos sugeridos antes de repetir la consulta.
+              schema:
+                type: integer
+                example: 60
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                codigo: SGA_NO_DISPONIBLE
+                mensaje: El SGA no respondió. Repita la consulta más tarde.
+                fechaConsulta: '2026-11-23T15:00:00Z'
+components:
+  schemas:
+    ResultadoElegibilidad:
+      type: object
+      required: [estudianteId, asignatura, fechaConsulta, estadoGeneral, requisitos]
+      properties:
+        estudianteId:
+          type: string
+        asignatura:
+          type: string
+        fechaConsulta:
+          type: string
+          format: date-time
+        estadoGeneral:
+          type: string
+          enum: [ELEGIBLE, NO_ELEGIBLE, INCOMPLETO]
+          description: |
+            ELEGIBLE si los tres requisitos son CUMPLE. NO_ELEGIBLE si al menos uno es NO_CUMPLE.
+            INCOMPLETO si ninguno es NO_CUMPLE y al menos uno es DATO_FALTANTE.
+        requisitos:
+          type: object
+          required: [matricula, nota, promedio]
+          properties:
+            matricula:
+              type: object
+              required: [resultado, valor]
+              properties:
+                resultado:
+                  $ref: '#/components/schemas/Resultado'
+                valor:
+                  type: string
+                  nullable: true
+                  enum: [REGULAR, NO_REGULAR, null]
+            nota:
+              type: object
+              required: [resultado, valor, minimo]
+              properties:
+                resultado:
+                  $ref: '#/components/schemas/Resultado'
+                valor:
+                  type: number
+                  nullable: true
+                minimo:
+                  type: number
+            promedio:
+              type: object
+              required: [resultado, valor, promedioCarrera]
+              properties:
+                resultado:
+                  $ref: '#/components/schemas/Resultado'
+                valor:
+                  type: number
+                  nullable: true
+                promedioCarrera:
+                  type: number
+                  nullable: true
+    Resultado:
+      type: string
+      enum: [CUMPLE, NO_CUMPLE, DATO_FALTANTE]
+    Error:
+      type: object
+      required: [codigo, mensaje, fechaConsulta]
+      properties:
+        codigo:
+          type: string
+          enum: [PARAMETRO_INVALIDO, ESTUDIANTE_NO_ENCONTRADO, SGA_NO_DISPONIBLE]
+        mensaje:
+          type: string
+        fechaConsulta:
+          type: string
+          format: date-time

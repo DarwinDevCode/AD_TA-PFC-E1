@@ -1,5 +1,29 @@
-% Responsable: SANCHEZ VERA DARWIN JOEL.
-% Exigencia: resumir decisiones arquitectonicas ADR-001 y ADR-002,
-% sus motivos, alternativas y consecuencias, sin duplicar los ADR completos.
-% Los registros editables corresponden al responsable en docs/adr/.
-\section{Resumen de ADR}
+\section{Registros de decisiones de arquitectura}
+\label{sec:resumen-adr}
+
+Los registros completos están en \texttt{docs/adr/}. La Tabla~\ref{tab:adr} resume ambas decisiones; las dos están en estado «Propuesto» hasta que el equipo las ratifique.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Resumen de ADR-001 y ADR-002}
+  \label{tab:adr}
+  \small
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.7cm}
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{ADR} & \textbf{Decisión propuesta} & \textbf{Motivo} & \textbf{Consecuencias principales} \\
+    \midrule
+    ADR-001, estilo de arquitectura
+      & Servicios por capacidad de negocio: postulaciones, elegibilidad, evaluación, seguimiento y notificaciones, cada uno con sus datos. Se descartaron el monolito, el monolito modular y los microservicios de grano fino.
+      & Escalar solo postulaciones en el pico (RNF-02), mantener la recepción ante fallos de otros servicios (RNF-03), aislar al SGA (RNF-04, RNF-10) y desplegar por separado (RNF-11).
+      & Fallos parciales y latencia entre servicios, datos repartidos y más trabajo de despliegue y pruebas. \\
+    \addlinespace
+    ADR-002, mecanismo de comunicación
+      & REST con JSON para las interacciones sincrónicas y mensajería con intermediario para los avisos.
+      & RF-03 y RF-05 requieren respuesta inmediata; la aplicación web usa REST sin intermediarios (RNF-12); según PE-U1, el protocolo no condiciona el umbral de RNF-01.
+      & Postulaciones depende en línea de elegibilidad, mitigado con tiempos de espera y «Validación pendiente»; el intermediario se incorpora desde E2. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

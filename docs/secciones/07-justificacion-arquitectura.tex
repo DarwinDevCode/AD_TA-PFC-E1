@@ -1,5 +1,43 @@
-% Responsable: SANCHEZ VERA DARWIN JOEL.
-% Exigencia: justificar la arquitectura distribuida frente a alternativas,
-% explicar las decisiones, sus ventajas y costos operativos.
-% Mantener coherencia con el alcance y con los ADR.
-\section{Justificación de la arquitectura}
+\section{Justificación de la arquitectura distribuida}
+\label{sec:justificacion-arquitectura}
+
+El SGAC concentra la carga en la ventana de inscripción, depende de un sistema externo que el equipo no controla y reúne funciones que cambian a ritmos distintos: la recepción de postulaciones dura 5 días, la evaluación ocurre una vez por convocatoria y el seguimiento se extiende todo el semestre. Un monolito, desplegado como una sola aplicación en un único servidor, obliga a que estas funciones compartan recursos, fallos y despliegues. La Tabla~\ref{tab:justificacion} relaciona cada necesidad con el requisito no funcional que la fija.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Necesidades del SGAC que justifican la distribución}
+  \label{tab:justificacion}
+  \small
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Necesidad} & \textbf{Requisito} & \textbf{Limitación del monolito} & \textbf{Respuesta distribuida} \\
+    \midrule
+    Pico del último día de inscripción
+      & RNF-02: 350 postulaciones válidas por convocatoria y 100 usuarios simultáneos con menos del 1\,\% de errores
+      & Para absorber el pico se replica la aplicación completa, incluidas evaluación y seguimiento, que en esos días no tienen carga
+      & Solo se escala el servicio de postulaciones \\
+    \addlinespace
+    Recepción continua durante la inscripción
+      & RNF-03: recepción disponible al menos el 99\,\% del tiempo en los 5 días
+      & Un fallo en cualquier módulo detiene el único proceso y, con él, la recepción
+      & Un fallo en evaluación, seguimiento o notificaciones no detiene a postulaciones \\
+    \addlinespace
+    Dependencia del SGA
+      & RNF-04: el 100\,\% de las postulaciones recibidas durante una falla del SGA queda en «Validación pendiente»; RNF-10: 0 escrituras hacia el SGA
+      & Las esperas al SGA ocupan los recursos del mismo proceso que atiende a los estudiantes
+      & Elegibilidad es el único contenedor que consulta al SGA; postulaciones limita la espera a 3\,s y conserva la postulación \\
+    \addlinespace
+    Cambios por funciones
+      & RNF-11: actualizar un servicio con 0 redespliegues de otros
+      & Cualquier cambio exige volver a desplegar toda la aplicación, también en plena inscripción
+      & Cada servicio tiene su propio despliegue \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+La distribución no se justifica por la ubicación de los usuarios, que pertenecen a una misma institución, ni por el desempeño. La comparación de Blinowski et al.~\cite{blinowski2022monolithic} muestra que el rendimiento y la escalabilidad de los microservicios dependen del entorno de despliegue, por lo que distribuir no garantiza tiempos de respuesta menores. El SGAC se distribuye para aislar fallos, escalar solo la función con carga y desplegar por separado.
+
+La distribución tiene costos: comunicación por red, contratos entre servicios, datos repartidos y más trabajo de monitoreo y pruebas, que es la principal dificultad que reportan los equipos que operan microservicios~\cite{waseem2021design}. Para acotarlos, el SGAC usa pocos servicios definidos por capacidad de negocio, con los principios de modularidad y bajo acoplamiento que recogen Velepucha y Flores~\cite{velepucha2023survey}, y no un servicio por entidad (ADR-001). La interacción crítica entre postulaciones y elegibilidad tiene un contrato con tiempos de espera y respuestas de error definidos (ADR-002), y los riesgos asociados a la distribución se tratan en el análisis de riesgos.
