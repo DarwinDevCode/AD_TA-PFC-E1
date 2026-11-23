@@ -52,13 +52,15 @@ paths:
           description: Identificador del estudiante en el SGA.
           schema:
             type: string
+            pattern: '^[A-Za-z0-9-]{1,20}$'
             example: EST-001
         - name: asignatura
           in: query
           required: true
-          description: Código de la asignatura a la que postula.
+          description: Código de la asignatura a la que postula. Un valor ausente o fuera del patrón devuelve 400.
           schema:
             type: string
+            pattern: '^[A-Za-z0-9-]{1,20}$'
             example: ASIG-01
       responses:
         '200':
@@ -129,7 +131,7 @@ paths:
                       nota: { resultado: DATO_FALTANTE, valor: null, minimo: 8.00 }
                       promedio: { resultado: CUMPLE, valor: 8.70, promedioCarrera: 8.20 }
         '400':
-          description: Falta el parámetro asignatura o su formato no es válido.
+          description: Falta el parámetro asignatura o no cumple el patrón definido.
           content:
             application/json:
               schema:
