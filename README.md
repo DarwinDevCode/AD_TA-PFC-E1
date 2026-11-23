@@ -81,10 +81,6 @@ Las operaciones y variables de configuración están en los README de
 [elegibilidad](src/servicio-a-elegibilidad/README.md) y
 [postulaciones](src/servicio-b-postulaciones/README.md).
 
-## Video de presentación
-
-PENDIENTE DE DEFINIR: enlace público al video de 5 a 7 minutos con participación de los tres integrantes y demostración del esqueleto.
-
 ## Compilación del documento
 
 - **Compilador:** `pdflatex` y `biber`.
