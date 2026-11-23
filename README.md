@@ -16,6 +16,14 @@ El SGAC es una propuesta para gestionar convocatorias, postulaciones, evaluació
 
 **Periodo académico:** PENDIENTE DE DEFINIR. Confirmación institucional de los roles: PENDIENTE DE DEFINIR.
 
+**Link del video:** https://drive.google.com/drive/folders/1cz2WF7eTlp2MVnRtzyxq3t1MDS0v-Pkc?usp=drive_link
+
+## Aportes de Melanie Muñoz Vera a E1
+
+- **Desarrollo:** implementó el [servicio A de elegibilidad](src/servicio-a-elegibilidad/README.md) y el SGA simulado de solo lectura. Preparó los [14 casos de elegibilidad](src/pruebas/casos-servicio-a.md) según el contrato OpenAPI y verificó la comunicación con el servicio B de postulaciones.
+- **Calidad:** documentó [12 requisitos no funcionales](docs/secciones/06-requisitos-no-funcionales.tex) y su [matriz de pruebas](src/pruebas/matriz-pruebas-rnf.md), [siete riesgos técnicos](docs/secciones/12-analisis-riesgos.tex) y la [matriz de trazabilidad](docs/matriz-trazabilidad.md) entre RF, RNF, C4, ADR y CAP/PACELC. Las cifras sujetas a validación institucional siguen siendo provisionales.
+- **Evidencia de integración:** documentó los resultados en la [sección 14](docs/secciones/14-esqueleto-funcional.tex). Al restablecer el SGA simulado, se revalidaron las 20 postulaciones sintéticas, con 0 pérdidas y 0 duplicados.
+
 ## Estructura del repositorio
 
 - `src/`: contratos, servicios y pruebas del esqueleto funcional.
@@ -78,10 +86,6 @@ servicio A, y luego el servicio B.
 Las operaciones y variables de configuración están en los README de
 [elegibilidad](src/servicio-a-elegibilidad/README.md) y
 [postulaciones](src/servicio-b-postulaciones/README.md).
-
-## Video de presentación
-
-PENDIENTE DE DEFINIR: enlace público al video de 5 a 7 minutos con participación de los tres integrantes y demostración del esqueleto.
 
 ## Compilación del documento
 
