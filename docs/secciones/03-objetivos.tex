@@ -1,5 +1,28 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Exigencia: un objetivo general y entre tres y cinco especificos medibles.
-% Para cada especifico, incluir indicador, meta y forma de comprobacion.
-% Coordinar indicadores con los requisitos no funcionales.
+% Indicadores propuestos: revisar junto con la responsable de calidad.
 \section{Objetivos}
+\label{sec:objetivos}
+
+\subsection{Objetivo general}
+Diseñar y desarrollar, a lo largo de las cuatro entregas del Proyecto Fin de Curso, una base funcional distribuida para el SGAC de la UTEQ que organice la postulación, selección y seguimiento de ayudantías de cátedra, con trazabilidad de las operaciones e integración simulada de solo lectura con el SGA.
+
+\subsection{Objetivos específicos e indicadores}
+\begingroup\small
+\begin{longtable}{@{}p{.37\textwidth}p{.19\textwidth}p{.16\textwidth}p{.16\textwidth}@{}}
+\caption{Objetivos específicos, indicadores y comprobación}\label{tab:objetivos}\\
+\toprule
+\textbf{Objetivo} & \textbf{Indicador} & \textbf{Meta propuesta} & \textbf{Cómo comprobarlo}\\
+\midrule\endfirsthead
+\toprule\textbf{Objetivo} & \textbf{Indicador} & \textbf{Meta propuesta} & \textbf{Cómo comprobarlo}\\\midrule\endhead
+\bottomrule\endfoot
+Definir el flujo de convocatoria y postulación con estados visibles y validación académica simulada. & RF implementados con criterios verificados. & RF-01 a RF-05 cubiertos en E4. & Pruebas de aceptación del flujo. \\
+\addlinespace
+Documentar la evaluación por méritos y oposición y una publicación reproducible de resultados. & RF de evaluación comprobados. & RF-06 a RF-08 cubiertos en E4. & Casos de prueba de puntajes y orden de mérito. \\
+\addlinespace
+Registrar planificación, actividades e informes de los ayudantes y el cierre de la ayudantía. & RF de seguimiento comprobados. & RF-09 a RF-12 cubiertos en E4. & Casos de aceptación de horas, informes y certificado. \\
+\addlinespace
+Comprobar la comunicación entre servicios y la continuidad de postulaciones ante una falla del SGA simulado. & Pruebas de integración y contingencia aprobadas. & Comunicación I-05 e incidencia RNF-04 verificadas. & Evidencia de ejecución y pruebas de falla. \\
+\end{longtable}
+\endgroup
+
+Las metas expresan el alcance de diseño y serán revisadas con los acuerdos de ADR-001 y ADR-002 y los requisitos no funcionales que cierre la responsable de calidad. No equivalen a funcionalidades ya implementadas.
