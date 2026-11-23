@@ -2,7 +2,7 @@
 \section{Requisitos funcionales}
 \label{sec:requisitos-funcionales}
 
-Los doce requisitos funcionales se expresan como historias de usuario con criterios de aceptación en formato Dado/Cuando/Entonces. Se agrupan en convocatoria y postulación (RF-01 a RF-05), evaluación (RF-06 a RF-08) y seguimiento y cierre (RF-09 a RF-12). Los actores y las etapas proceden del análisis de requisitos previo~\cite{sgacAntecedente}; RF-02, RF-03 y RF-05 incorporan además lo registrado en el acta de la entrevista (P13, P15 a P17). Cada requisito se asigna al contenedor del C4 que lo implementa (sección~\ref{sec:arquitectura-c4}).
+Los doce requisitos funcionales se expresan como historias de usuario con criterios de aceptación en formato Dado/Cuando/Entonces. Se agrupan en convocatoria y postulación (RF-01 a RF-05), evaluación (RF-06 a RF-08) y seguimiento y cierre (RF-09 a RF-12). Las etapas y los actores se derivan del antecedente de análisis institucional~\cite{sgacAntecedente}. El acta del 21-11-2026 organiza temas de rendimiento e integración (P13, P15 a P17), pero sus síntesis técnicas no constituyen respuestas verificadas ni confirman por sí solas los RF. Cada requisito se asigna al contenedor del C4 (sección~\ref{sec:arquitectura-c4}) y queda sujeto a la validación indicada al final de esta sección.
 
 \newcommand{\rfcriterio}[3]{\item \textbf{Dado} #1, \textbf{cuando} #2, \textbf{entonces} #3.}
 
@@ -19,12 +19,14 @@ Los doce requisitos funcionales se expresan como historias de usuario con criter
   \rfcriterio{una convocatoria abierta y los documentos requeridos}{el estudiante envía la solicitud}{el sistema la guarda, confirma la recepción y muestra el estado «Enviada»}
   \rfcriterio{una postulación ya registrada para la misma convocatoria}{el estudiante la envía otra vez}{el sistema rechaza el duplicado y conserva la postulación original}
   \rfcriterio{una convocatoria cuyo plazo terminó}{el estudiante intenta postular}{el sistema rechaza el envío e informa el cierre del plazo}
+  \rfcriterio{una postulación recibida mientras el SGA no responde}{el estudiante consulta la confirmación}{se muestra «Enviada» como estado de recepción y «Validación pendiente» como estado académico, sin indicar que cumple los requisitos}
 \end{itemize}
 
 \paragraph{RF-03. Verificar requisitos académicos.} Como coordinador de carrera, quiero que el sistema verifique la matrícula, la nota de la asignatura y el promedio del postulante consultando el SGA en modo de solo lectura, para revisar los requisitos académicos sin certificados impresos.
 \begin{itemize}
   \rfcriterio{una postulación enviada y el SGA disponible}{se consulta la elegibilidad}{cada requisito se registra como «Cumple», «No cumple» o «Dato faltante», con la fecha de consulta}
   \rfcriterio{un estudiante sin registro en el SGA}{se consulta la elegibilidad}{la validación queda como «Sin registro académico» y no se reintenta}
+  \rfcriterio{una respuesta académica con un dato incompleto}{se procesa la consulta}{ese requisito queda como «Dato faltante», sin equipararlo con «No cumple»}
   \rfcriterio{el SGA sin respuesta}{se consulta la elegibilidad}{la postulación permanece «Enviada» con validación en «Validación pendiente» y se revalida al recuperarse el SGA, sin crear otra postulación}
 \end{itemize}
 
@@ -113,5 +115,35 @@ RF-12 & Obtener el certificado & Ayudante y decano & Media & Seguimiento\\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\subsection{Fuentes y confirmaciones pendientes}
+La fuente «Antecedente» de la Tabla~\ref{tab:rf-fuentes} corresponde al estudio institucional previo~\cite{sgacAntecedente}; no equivale a una respuesta de la entrevista de E1. Las referencias P13 y P15--P17 remiten a temas del acta preliminar de levantamiento, no a una validación del entrevistado. En particular, la cifra de rendimiento de P13 pertenece a los RNF y no demuestra el funcionamiento de RF-05.
+
+\begingroup\small
+\begin{longtable}{@{}p{.11\textwidth}p{.31\textwidth}p{.51\textwidth}@{}}
+\caption{Trazabilidad documental y verificaciones pendientes por RF}\label{tab:rf-fuentes}\\
+\toprule
+\textbf{RF} & \textbf{Fuente disponible} & \textbf{Aspecto que necesita confirmación}\\
+\midrule\endfirsthead
+\toprule
+\textbf{RF} & \textbf{Fuente disponible} & \textbf{Aspecto que necesita confirmación}\\
+\midrule\endhead
+\bottomrule\endfoot
+RF-01 & Antecedente. & Plazos, cupos y aviso de apertura de convocatoria.\\
+RF-02 & Antecedente; contingencia propuesta en acta P17. & Documentos obligatorios, recepción y diferenciación entre estado de envío y validación académica.\\
+RF-03 & Antecedente; temas del acta P15--P17; contratos I-05 e I-06. & Autorización de consulta al SGA, tratamiento de datos faltantes, registro inexistente y servicio indisponible.\\
+RF-04 & Antecedente. & Quién observa documentos y hasta cuándo puede el estudiante corregirlos.\\
+RF-05 & Antecedente; P13 solo fundamenta una meta de rendimiento. & Avisos de apertura, cambios visibles en el panel y medio de notificación institucional.\\
+RF-06 & Antecedente. & Rúbrica de méritos y máximos vigentes por rubro.\\
+RF-07 & Antecedente. & Sorteo del tema, plazo de citación y ponderaciones de oposición.\\
+RF-08 & Antecedente; decisión de consistencia en CAP/PACELC. & Criterio de desempate, orden de mérito, cupos y autorización para publicar.\\
+RF-09 & Antecedente. & Contenido obligatorio de cada sesión y revisión de evidencias.\\
+RF-10 & Antecedente. & Límite semanal y restricciones de solapamiento vigentes.\\
+RF-11 & Antecedente. & Secuencia de revisión, observaciones y comunicación al ayudante.\\
+RF-12 & Antecedente. & Aprobaciones exigidas y autoridad que autoriza la emisión del certificado.\\
+\end{longtable}
+\endgroup
+
+Hasta disponer del registro real de preguntas y respuestas y de la conformidad del entrevistado, estas fuentes muestran el origen documental de las propuestas, no una validación institucional. Los criterios RF-02 y RF-03 se alinean con los estados definidos en los contratos de elegibilidad y en la sección del esqueleto funcional.
 
 El tope de 20 horas semanales de RF-10, el criterio de desempate de RF-08 y la rúbrica de RF-06 y RF-07 se adoptan como supuestos de diseño del equipo hasta contrastarlos con la normativa vigente de la UTEQ.
