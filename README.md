@@ -16,6 +16,12 @@ PENDIENTE DE DEFINIR.
 
 Los roles son propuestas cuya confirmación estaba prevista para el **20 de noviembre de 2026**. La confirmación efectiva está **PENDIENTE DE DEFINIR**. MUÑOZ VERA MELANIE MICHELLE asume **dos roles**: Líder de Desarrollo y Responsable de Calidad.
 
+## Aportes de Melanie Muñoz Vera a E1
+
+- **Desarrollo:** implementó el [servicio A de elegibilidad](src/servicio-a-elegibilidad/README.md) y el SGA simulado de solo lectura. Preparó los [14 casos de elegibilidad](src/pruebas/casos-servicio-a.md) según el contrato OpenAPI y verificó la comunicación con el servicio B de postulaciones.
+- **Calidad:** documentó [12 requisitos no funcionales](docs/secciones/06-requisitos-no-funcionales.tex) y su [matriz de pruebas](src/pruebas/matriz-pruebas-rnf.md), [siete riesgos técnicos](docs/secciones/12-analisis-riesgos.tex) y la [matriz de trazabilidad](docs/matriz-trazabilidad.md) entre RF, RNF, C4, ADR y CAP/PACELC. Las cifras sujetas a validación institucional siguen siendo provisionales.
+- **Evidencia de integración:** documentó los resultados en la [sección 14](docs/secciones/14-esqueleto-funcional.tex). Al restablecer el SGA simulado, se revalidaron las 20 postulaciones sintéticas, con 0 pérdidas y 0 duplicados.
+
 ## Estructura del repositorio
 
 - `/src/`: código fuente y servicios del esqueleto funcional.
@@ -81,7 +87,7 @@ Las operaciones y variables de configuración están en los README de
 
 ## Video de presentación
 
-PENDIENTE DE DEFINIR.
+[Video de presentación de E1 (carpeta de Google Drive)](https://drive.google.com/drive/folders/1cz2WF7eTlp2MVnRtzyxq3t1MDS0v-Pkc?usp=drive_link)
 
 ## Compilación del documento
 
