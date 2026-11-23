@@ -1,6 +1,12 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Exigencia: resumen ejecutivo de 300 a 400 palabras.
-% Debe explicar el problema real, sus usuarios, por que se requiere un
-% sistema distribuido y el alcance comprometido durante el periodo.
-% Elaborar cuando el alcance este confirmado en ADR-001.
+% El alcance y las cifras son propuestas; ajustar tras validacion del equipo.
 \section{Resumen ejecutivo}
+\label{sec:resumen-ejecutivo}
+
+El Sistema de Gestión de Ayudantías de Cátedra (SGAC) es una propuesta para organizar el proceso de ayudantías de la Universidad Técnica Estatal de Quevedo. El proyecto aborda la dispersión de información que el estudio de requisitos previo describe en la convocatoria, recepción de documentos, evaluación de postulantes y seguimiento de las actividades. En ese antecedente se identifican trámites apoyados en correos y archivos separados, lo que dificulta consultar estados, mantener el historial de decisiones y consolidar informes~\cite{sgacAntecedente}. Los tiempos y costos actuales de la UTEQ aún requieren medición en el levantamiento de esta entrega.
+
+Los usuarios previstos son estudiantes postulantes y ayudantes, docentes, coordinadores de carrera, miembros de la comisión de selección, autoridades y administradores. La solución busca que cada actor realice las operaciones que le corresponden y consulte información coherente con su rol: postular, verificar requisitos, registrar puntajes, revisar actividades y gestionar el cierre de una ayudantía. Se proponen doce requisitos funcionales redactados como historias de usuario, acompañados de criterios de aceptación. Sus reglas y prioridades están sujetas a contraste con evidencia real del proceso.
+
+El sistema se plantea con una arquitectura distribuida porque las funciones presentan cargas y dependencias distintas. La postulación recibe la mayor demanda durante la inscripción, mientras la evaluación y el seguimiento operan en otros momentos. Además, la verificación académica depende del SGA institucional, que el equipo no controla. Separar postulaciones y elegibilidad permite diseñar una respuesta ante esa falla sin perder necesariamente las solicitudes recibidas. La decisión arquitectónica está documentada en ADR-001, y ADR-002 define REST con JSON para las consultas síncronas y mensajería para los avisos posteriores. Esas decisiones requieren pruebas; distribuir servicios no garantiza por sí solo un mejor rendimiento.
+
+El Proyecto Fin de Curso se desarrolla en cuatro entregas. En E1 se documenta el dominio, se establecen los requisitos y se prepara una demostración mínima de comunicación entre dos servicios. En E2 se profundizará en los microservicios, sus API y contenedores; en E3 se tratarán los datos distribuidos y el procesamiento; y en E4 se integrará y evaluará el sistema. El SGA se representará con una interfaz simulada de solo lectura, sin conectarse a registros institucionales reales. La firma electrónica y el asistente de IA quedan fuera del alcance establecido en ADR-001.

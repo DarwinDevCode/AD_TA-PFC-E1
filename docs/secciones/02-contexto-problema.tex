@@ -1,6 +1,55 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Exigencia: describir organizacion, proceso actual y problema real.
-% Incluir consecuencias medibles (tiempos, costos, errores) sustentadas
-% por evidencia del levantamiento y tabla de stakeholders/expectativas.
-% Citar el documento previo como antecedente, sin copiar contenido.
+% Base: antecedente documental del SGAC; datos de campo por confirmar.
 \section{Contexto y problema}
+\label{sec:contexto-problema}
+
+\subsection{Organización y proceso}
+El Sistema de Gestión de Ayudantías de Cátedra (SGAC) se plantea para la Universidad Técnica Estatal de Quevedo (UTEQ), con énfasis en el proceso de la Facultad de Ciencias de la Computación y Diseño Digital. La ayudantía comprende la convocatoria, postulación, revisión de requisitos, concurso de méritos y oposición, designación, seguimiento de actividades e informes, y certificación. El documento de análisis elaborado previamente en la institución describe estas etapas y sus actores; se utiliza aquí \emph{como antecedente}, no como sustituto de la entrevista de esta entrega~\cite{sgacAntecedente}.
+
+Según ese antecedente, parte del trabajo se organiza mediante correos, documentos y archivos separados. Esto obliga a revisar manualmente requisitos y evidencias, dificulta consultar el estado de una solicitud y puede ocasionar duplicación de registros o pérdida de trazabilidad. Son problemas descritos en el estudio previo, no incidencias cuantificadas mediante la entrevista de noviembre de 2026.
+
+\subsection{Problema que abordará el SGAC}
+La información de una convocatoria atraviesa distintas áreas: el estudiante presenta sus documentos; la coordinación comprueba requisitos y organiza el concurso; la comisión asigna puntajes; el docente y el ayudante registran actividades; las autoridades validan cierres y certificados. Al no disponer de un expediente y estados unificados, es difícil reconstruir qué se recibió, quién revisó cada dato y en qué etapa se encuentra el trámite~\cite{sgacAntecedente}. La literatura sobre administración universitaria destaca la importancia de integrar procesos, información y responsables en la digitalización institucional~\cite{fernandez2023digital,souli2025administracion}.
+
+\subsection{Consecuencias y datos por medir}
+Para la presente entrega no se dispone de mediciones verificadas de tiempos, costos o errores del proceso actual de la UTEQ. Por ello, la Tabla~\ref{tab:contexto-mediciones} separa la consecuencia identificada del dato que aún debe recogerse. No se atribuyen cifras hipotéticas al entrevistado.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Consecuencias del proceso y mediciones pendientes}
+\label{tab:contexto-mediciones}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}X p{3.5cm}@{}}
+\toprule
+\textbf{Aspecto} & \textbf{Consecuencia documentada o posible} & \textbf{Medición que falta}\\
+\midrule
+Postulación y revisión & Demoras al intercambiar documentos y verificar requisitos. & Tiempo real por postulación y por validación.\\
+Seguimiento del trámite & Dificultad para conocer el estado y reconstruir las decisiones. & Consultas y correcciones por convocatoria.\\
+Registro de evaluaciones & Riesgo de recaptura, errores o duplicidad de información. & Frecuencia de errores y rectificaciones.\\
+Consolidación e informes & Tiempo administrativo en reportes y certificados. & Horas de trabajo y plazo hasta el cierre.\\
+Volumen de uso & Carga concentrada durante la inscripción. & Convocatorias, solicitudes y usuarios simultáneos en la UTEQ.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Los escenarios de 350 postulaciones y 100 usuarios simultáneos empleados en los RNF son \emph{metas iniciales de diseño}, no estadísticas institucionales. Deben mantenerse como hipótesis hasta contar con datos y pruebas.
+
+\subsection{Interesados y expectativas}
+\begin{table}[htbp]
+\centering\small
+\caption{Interesados del SGAC y expectativas por validar}
+\label{tab:stakeholders}
+\begin{tabularx}{\textwidth}{@{}p{3.1cm}p{3.2cm}X@{}}
+\toprule
+\textbf{Interesado} & \textbf{Papel en el proceso} & \textbf{Necesidad considerada en el diseño}\\
+\midrule
+Estudiante o ayudante & Postula y realiza actividades. & Conocer requisitos, estados y observaciones; registrar horas y evidencias.\\
+Docente & Acompaña y evalúa al ayudante. & Revisar actividades y aprobar u observar informes.\\
+Coordinación de carrera & Gestiona convocatorias y requisitos. & Centralizar documentos, validar elegibilidad y publicar resultados.\\
+Comisión de selección & Evalúa méritos y oposición. & Registrar puntajes y aplicar criterios reproducibles.\\
+Decanato & Autoriza resultados y cierres. & Consultar trazabilidad y autorizar certificados.\\
+Administración del sistema & Controla accesos y configuración. & Gestionar roles, respaldos y registros de auditoría.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Estas expectativas proceden de los roles descritos en el antecedente~\cite{sgacAntecedente}; su conformidad con la situación vigente debe verificarse mediante el levantamiento real. La integración propuesta con el Sistema de Gestión Académica (SGA) será únicamente de lectura, y su viabilidad depende de las autorizaciones y condiciones técnicas institucionales.
