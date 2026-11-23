@@ -28,7 +28,56 @@ Los roles son propuestas cuya confirmación estaba prevista para el **20 de novi
 
 ## Ejecución del esqueleto
 
-Esta sección la completa MUÑOZ VERA MELANIE MICHELLE cuando existan los servicios.
+### Instalación
+
+Usa Python 3.12 y ejecuta los comandos desde la raíz del repositorio.
+
+En Windows (PowerShell):
+
+```powershell
+py -3.12 -m venv src/servicio-a-elegibilidad/.venv
+$pythonSGAC = '.\src\servicio-a-elegibilidad\.venv\Scripts\python.exe'
+& $pythonSGAC -m pip install -r src/servicio-a-elegibilidad/requirements.txt -r src/servicio-b-postulaciones/requirements.txt
+& $pythonSGAC -X utf8 src/pruebas/prueba-comunicacion.py
+```
+
+En Linux o macOS:
+
+```sh
+python3.12 -m venv src/servicio-a-elegibilidad/.venv
+python_sgac=src/servicio-a-elegibilidad/.venv/bin/python
+"$python_sgac" -m pip install -r src/servicio-a-elegibilidad/requirements.txt -r src/servicio-b-postulaciones/requirements.txt
+"$python_sgac" -X utf8 src/pruebas/prueba-comunicacion.py
+```
+
+### Prueba de comunicación
+
+La prueba arranca el SGA simulado, elegibilidad (A) y postulaciones (B)
+en puertos locales disponibles. Usa datos sintéticos y una base SQLite
+temporal. Cuenta con el intervalo de revalidación de 60 segundos, por lo
+que puede tardar algo más de un minuto.
+
+El resultado esperado es `Prueba de comunicación superada.` Se comprueban
+los resultados de elegibilidad, la respuesta de estudiante sin registro,
+el `503` al detener el SGA y la revalidación de la misma postulación
+cuando el SGA vuelve a estar disponible. Al terminar se comprueba que
+el simulador recibió solo lecturas.
+
+### Arranque manual
+
+En tres terminales, desde la carpeta indicada, ejecuta cada comando con
+el Python del entorno virtual anterior. Inicia primero el SGA y el
+servicio A, y luego el servicio B.
+
+| Carpeta | Comando de Python | Puerto local |
+| --- | --- | --- |
+| `src/servicio-a-elegibilidad` | `python -m uvicorn app.sga_simulado:app --port 8090` | 8090 |
+| `src/servicio-a-elegibilidad` | `python -m uvicorn app.main:crear_app --factory --port 8081` | 8081 |
+| `src/servicio-b-postulaciones` | `python -m uvicorn app.main:crear_app --factory --port 8080` | 8080 |
+
+Las operaciones y variables de configuración están en los README de
+[elegibilidad](src/servicio-a-elegibilidad/README.md) y
+[postulaciones](src/servicio-b-postulaciones/README.md).
 
 ## Video de presentación
 

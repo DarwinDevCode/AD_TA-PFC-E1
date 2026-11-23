@@ -5,73 +5,63 @@
 \section{Esqueleto funcional}
 \label{sec:esqueleto-funcional}
 
-\textbf{Estado del borrador.} El contrato OpenAPI de elegibilidad está
-publicado como \texttt{1.0.0-propuesto} y los casos de prueba ya se
-adaptaron a esa versión. Quedan pendientes la aprobación del ADR-002,
-la implementación y los resultados de las pruebas.
+El esqueleto de E1 implementa la consulta de elegibilidad académica
+(RF-03) con el mecanismo aceptado en ADR-002. La prueba de comunicación
+se ejecutó localmente con Python 3.12 y datos sintéticos.
 
-\subsection{Servicios y flujo previsto}
+\subsection{Servicios e interfaces}
 
-En la interacción I-05, el servicio de postulaciones
-(\path{servicio-b-postulaciones}) solicitará la verificación académica de
-un estudiante para una asignatura (RF-03). El servicio de elegibilidad
-(\path{servicio-a-elegibilidad}) consultará el SGA simulado en modo de
-solo lectura (RNF-10) y devolverá los resultados de matrícula, nota y
-promedio. Las instrucciones de arranque y prueba
-se incorporarán a la sección «Ejecución del esqueleto» del
-\texttt{README.md} cuando los servicios estén disponibles.
+En I-05, postulaciones (\path{src/servicio-b-postulaciones/}) solicita
+al servicio de elegibilidad (\path{src/servicio-a-elegibilidad/}) la
+verificación de matrícula, nota y promedio de un estudiante. En I-06,
+elegibilidad consulta el registro académico en el SGA simulado en modo
+de solo lectura. Los tres procesos intercambian JSON mediante REST
+sobre HTTP.
 
-\subsection{Contrato OpenAPI propuesto}
+I-05 se rige por la versión 1.0.0 de
+\path{src/contrato/elegibilidad-v1.yaml}. Elegibilidad ofrece
+\texttt{GET} \path{/salud} y \texttt{GET}
+\path{/estudiantes/{estudianteId}/elegibilidad} dentro de
+\path{/api/v1}. La consulta requiere el código de \texttt{asignatura}.
+Con los datos del SGA, la operación devuelve \texttt{200} con los
+resultados por requisito y la fecha de consulta en UTC. El contrato
+define \texttt{400} para parámetros inválidos, \texttt{404} para un
+estudiante sin registro y \texttt{503} cuando falla la consulta al
+SGA, cuyo límite de espera es de 2 segundos. La interfaz de I-06 se
+describe en \path{src/contrato/sga-simulado-v1.yaml}.
 
-El archivo \path{src/contrato/elegibilidad-v1.yaml} describe un
-intercambio REST sobre HTTP con JSON. La URL base local propuesta es
-\url{http://localhost:8081/api/v1}. El contrato declara dos operaciones
-de lectura:
+\subsection{Prueba de comunicación}
 
-\begin{itemize}
-  \item \texttt{GET} \path{/salud} comprueba que elegibilidad está en
-    ejecución.
-  \item \texttt{GET} \path{/estudiantes/{estudianteId}/elegibilidad}
-    evalúa los requisitos académicos. La operación recibe
-    \texttt{estudianteId} en la ruta y el código obligatorio
-    \texttt{asignatura} en la consulta.
-\end{itemize}
-
-La consulta de elegibilidad devuelve \texttt{200} con los resultados
-por requisito, el estado general y la fecha de consulta en UTC. Los
-códigos previstos son \texttt{400} para una asignatura ausente o
-inválida, \texttt{404} si el estudiante carece de registro y
-\texttt{503} si el SGA simulado rechaza la conexión o supera el límite
-de respuesta de 2 segundos.
-
-Para RNF-04, postulaciones esperará hasta 3 segundos por la respuesta
-de elegibilidad. Ante un \texttt{503}, un error de conexión o un
-tiempo de espera agotado, conservará la postulación en «Validación
-pendiente» y repetirá la consulta cada 60 segundos hasta recibir
-\texttt{200} o \texttt{404}. Estos comportamientos corresponden al
-contrato propuesto, pendiente de ratificación con el ADR-002.
-
-\subsection{Pruebas previstas}
-
-\path{src/pruebas/casos-servicio-a.md} contiene 14 casos y 9 registros
-sintéticos. La demostración inicial usará SA-01 y SA-03 para comprobar
-que postulaciones recibe tanto un resultado elegible como uno no
-elegible por nota insuficiente. Los casos restantes cubren los valores
-límite, datos incompletos, ausencia de registro, recuperación del SGA,
-salud y el parámetro obligatorio de asignatura.
-
-SA-10 se usará para comprobar la respuesta de elegibilidad ante una
-interrupción. La conservación de la postulación y el reintento se
-comprobarán en la prueba entre ambos servicios (RNF-04). SA-11
-verificará que las consultas generan cero escrituras hacia el SGA
-simulado (RNF-10). Los criterios de estos requisitos están en
-\path{src/pruebas/matriz-pruebas-rnf.md}.
+La prueba reproducible está en \path{src/pruebas/prueba-comunicacion.py}.
+El script arranca los tres procesos en puertos locales disponibles y
+usa una base SQLite temporal para postulaciones. Ejecuta consultas
+desde B hacia A, detiene el SGA y lo vuelve a arrancar para comprobar
+la revalidación. Los pasos de instalación y ejecución se describen en
+el \texttt{README.md}. El catálogo de casos y registros sintéticos
+está en \path{src/pruebas/casos-servicio-a.md}.
 
 \subsection{Resultados y evidencias}
 
-\textbf{Pendientes de ejecución.} Por cada caso se registrarán la versión
-del contrato, la solicitud, el estado HTTP, el resultado esperado, el
-resultado observado y el tiempo medido cuando corresponda. Las
-capturas originales se guardarán en \texttt{evidencias/capturas/} y
-mostrarán ambos servicios en marcha, el intercambio, el usuario, el
-equipo y la fecha y hora del sistema.
+\begin{itemize}
+  \item B recibió \texttt{ELEGIBLE} para \texttt{EST-001},
+    \path{NO_ELEGIBLE} para \texttt{EST-003} e \texttt{INCOMPLETO}
+    para \texttt{EST-008}. Para \texttt{EST-999} distinguió el
+    \texttt{404} y registró «Sin registro académico».
+  \item Con el SGA detenido, A devolvió \texttt{503} y
+    \texttt{Retry-After: 60}. B conservó la postulación de
+    \texttt{EST-002} como «Enviada», con estado de validación
+    «Validación pendiente». Con el intervalo de reintento configurado
+    en 60 segundos, B revalidó el mismo registro sin duplicarlo. La
+    revalidación se observó 53,5 segundos después de comprobar que el
+    simulador volvía a responder.
+  \item El registro del SGA simulado mostró 7 solicitudes de lectura,
+    incluidas las comprobaciones de arranque, y 0 escrituras.
+\end{itemize}
+
+El ensayo comprueba el intercambio entre servicios y un caso de
+recuperación de RNF-04, junto con la condición de solo lectura de
+RNF-10. La prueba de RNF-04 con 20 postulaciones entre los tres procesos y las
+mediciones de carga siguen pendientes. También quedan pendientes de
+incorporar las capturas originales en \texttt{evidencias/capturas/},
+con los servicios en ejecución, el usuario, el equipo y la fecha y
+hora del sistema.
