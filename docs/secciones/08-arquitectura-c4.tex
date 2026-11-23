@@ -1,5 +1,40 @@
-% Responsable: SANCHEZ VERA DARWIN JOEL.
-% Exigencia: modelo C4 de niveles 1 (contexto) y 2 (contenedores).
-% Incluir diagramas coherentes con servicios, actores e integraciones.
-% Mantener los archivos editables fuera de esta seccion en docs/diagramas/.
 \section{Arquitectura C4}
+\label{sec:arquitectura-c4}
+
+\subsection{Nivel 1: contexto}
+
+La Figura~\ref{fig:c4-contexto} presenta el SGAC como un único sistema, las seis personas que lo usan y los cuatro sistemas externos con los que se integra. Cada flecha parte de quien inicia la interacción e indica la información que se intercambia. La Tabla~\ref{tab:c4-contexto} relaciona cada elemento con los requisitos que lo respaldan.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.86\textheight]{c4-nivel1-contexto.pdf}
+  \caption{Diagrama de contexto del SGAC (C4 nivel 1)}
+  \label{fig:c4-contexto}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Elementos del diagrama de contexto}
+  \label{tab:c4-contexto}
+  \small
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.3cm}
+                                  >{\raggedright\arraybackslash}p{1.6cm}
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}p{2.6cm}@{}}
+    \toprule
+    \textbf{Elemento} & \textbf{Tipo} & \textbf{Relación con el SGAC} & \textbf{Requisitos} \\
+    \midrule
+    Estudiante / Ayudante & Persona & Postula, consulta el estado de su postulación, registra su planificación y sus sesiones y obtiene el certificado & RF-02, RF-05, RF-09, RF-10, RF-12 \\
+    Docente & Persona & Emite el aval del postulante y aprueba u observa los informes del ayudante & RF-11 \\
+    Coordinador de carrera & Persona & Publica convocatorias, revisa documentos, verifica requisitos y publica resultados & RF-01, RF-03, RF-04, RF-08 \\
+    Comisión de selección & Persona & Registra los puntajes de méritos y oposición & RF-06, RF-07 \\
+    Decano & Persona & Aprueba resoluciones y la emisión del certificado & RF-12 \\
+    Administrador del sistema & Persona & Configura plantillas, criterios, rúbricas, roles y permisos & RNF-06 \\
+    \midrule
+    SGA de la UTEQ & Sistema externo & Provee matrícula, notas y promedios; el SGAC solo lo consulta & RF-03, RNF-04, RNF-10 \\
+    Mensajería institucional & Sistema externo & Entrega los avisos de cambios de estado y resultados & RF-05 \\
+    Servicio de IA & Sistema externo & Genera borradores de documentos y alertas de plazos; fuera del alcance de E1 a E4 (ADR-001) & --- \\
+    Firma electrónica & Sistema externo & Firma actas, informes y resoluciones; fuera del alcance de E1 a E4 (ADR-001) & --- \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
