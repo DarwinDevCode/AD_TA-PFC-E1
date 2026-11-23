@@ -18,6 +18,12 @@ El SGAC es una propuesta para gestionar convocatorias, postulaciones, evaluació
 
 **Link del video:** https://drive.google.com/drive/folders/1cz2WF7eTlp2MVnRtzyxq3t1MDS0v-Pkc?usp=drive_link
 
+## Aportes de Melanie Muñoz Vera a E1
+
+- **Desarrollo:** implementó el [servicio A de elegibilidad](src/servicio-a-elegibilidad/README.md) y el SGA simulado de solo lectura. Preparó los [14 casos de elegibilidad](src/pruebas/casos-servicio-a.md) según el contrato OpenAPI y verificó la comunicación con el servicio B de postulaciones.
+- **Calidad:** documentó [12 requisitos no funcionales](docs/secciones/06-requisitos-no-funcionales.tex) y su [matriz de pruebas](src/pruebas/matriz-pruebas-rnf.md), [siete riesgos técnicos](docs/secciones/12-analisis-riesgos.tex) y la [matriz de trazabilidad](docs/matriz-trazabilidad.md) entre RF, RNF, C4, ADR y CAP/PACELC. Las cifras sujetas a validación institucional siguen siendo provisionales.
+- **Evidencia de integración:** documentó los resultados en la [sección 14](docs/secciones/14-esqueleto-funcional.tex). Al restablecer el SGA simulado, se revalidaron las 20 postulaciones sintéticas, con 0 pérdidas y 0 duplicados.
+
 ## Estructura del repositorio
 
 - `src/`: contratos, servicios y pruebas del esqueleto funcional.
