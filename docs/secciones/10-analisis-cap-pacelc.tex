@@ -1,5 +1,31 @@
-% Responsable: SANCHEZ VERA DARWIN JOEL.
-% Exigencia: analizar compromisos CAP y PACELC de la propuesta.
-% Describir comportamiento ante particiones, consistencia, disponibilidad
-% y latencia, con escenarios coherentes con los servicios definidos.
 \section{Análisis CAP y PACELC}
+\label{sec:analisis-cap}
+
+En la arquitectura propuesta, cada dato tiene un único servicio dueño con una base de datos propia; la replicación de bases de datos se decidirá en E3. Por eso, las particiones que se analizan son las que separan a un servicio de otro servicio o del SGA. La Tabla~\ref{tab:cap} indica, para cada dato crítico, qué se prioriza ante una partición (C: consistencia; A: disponibilidad) y qué en operación normal (L: latencia; C: consistencia).
+
+\begingroup
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.16\linewidth}>{\raggedright\arraybackslash}p{.19\linewidth}>{\raggedright\arraybackslash}p{.16\linewidth}>{\raggedright\arraybackslash}p{.26\linewidth}>{\raggedright\arraybackslash}p{.11\linewidth}@{}}
+\caption{Decisiones CAP y PACELC por dato crítico}\label{tab:cap}\\
+\toprule
+Dato crítico & Con partición & Sin partición & Consecuencia para el usuario & Requisitos \\
+\midrule
+\endfirsthead
+\toprule
+Dato crítico & Con partición & Sin partición & Consecuencia para el usuario & Requisitos \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Postulación recibida & A: postulaciones la registra aunque no alcance a elegibilidad o al SGA & C: el envío se confirma solo después de guardarse & El estudiante recibe la confirmación aunque el SGA esté caído; su postulación queda en «Validación pendiente» & RF-02, RNF-03, RNF-04 \\ \addlinespace
+Resultado de elegibilidad & C: sin respuesta del SGA no se registra «Cumple» ni «No cumple» & C: se consulta el SGA al validar, sin copias guardadas & Nadie queda excluido por falta de datos; la decisión se retrasa hasta revalidar & RF-03, RNF-04, RNF-10 \\ \addlinespace
+Estado de la postulación & A: el cambio se registra y la consulta sigue respondiendo; el aviso espera en la cola & L: el aviso se entrega después del cambio; la consulta lee el último estado registrado & El panel muestra el estado vigente; el correo puede llegar con retraso & RF-05, RNF-01, RNF-11 \\ \addlinespace
+Puntajes de méritos y oposición & C: si evaluación no confirma el registro, se rechaza y se pide repetirlo & C: escrituras con control de versión; una edición simultánea del mismo puntaje se rechaza & La comisión puede tener que repetir un registro, pero no existen dos versiones del mismo puntaje & RF-06, RF-07, RNF-07 \\ \addlinespace
+Cupos de la convocatoria & C: sin acceso a postulaciones no se designa ningún ganador & C: los cupos se leen en el momento de designar & La designación puede retrasarse, pero nunca supera los cupos publicados & RF-01, RF-08 \\ \addlinespace
+Orden de mérito y resultados & C: sin las postulaciones validadas (I-07) no se consolida ni se publica & C: el cálculo usa un único conjunto de puntajes consolidado & La publicación puede retrasarse, pero no se publica un orden calculado con datos incompletos & RF-08, RNF-07 \\ \addlinespace
+Horas semanales planificadas & C: sin la ayudantía recibida por I-12, seguimiento no acepta planificaciones & C: el tope de 20 horas y los solapamientos se validan al guardar & El ayudante espera a que su ayudantía esté registrada; nunca se aceptan más de 20 horas & RF-10 \\ \addlinespace
+Avisos enviados & A: los eventos se conservan en el intermediario hasta entregarse & L: se entregan sin bloquear la operación que los originó & Los avisos llegan tarde ante una falla, pero no se pierden & RF-05, RF-08, RF-11, RNF-11 \\
+\end{longtable}
+\endgroup
+
+El SGAC prioriza la disponibilidad solo en la recepción de postulaciones y en los avisos, donde un retraso no altera ninguna decisión del concurso. En los datos que definen quién gana una ayudantía (elegibilidad, puntajes, cupos y orden de mérito) prioriza la consistencia, aunque eso retrase la operación. Esta separación coincide con ADR-001, que aísla la recepción de postulaciones, y con los riesgos de concurrencia y de pérdida de puntajes del análisis de riesgos.
