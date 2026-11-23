@@ -59,25 +59,25 @@ Fuente: https://github.com/jcedenoi4/GA-SUM-02
 
 ## Decisión tomada
 
-Pendiente de ratificación del equipo. Propuesta:
+1. **Mecanismo principal: REST sobre HTTP con JSON** para las interacciones sincrónicas I-02 a I-07. I-05 sigue el contrato `src/contrato/elegibilidad-v1.yaml`.
+2. **Mensajería asincrónica con intermediario** para las interacciones I-08 a I-13. Se incorpora con notificaciones y seguimiento (E2 a E4); el esqueleto de E1 no la usa.
 
-1. **Mecanismo principal: REST sobre HTTP con JSON** para las interacciones sincrónicas I-02 a I-07, incluida I-05 del esqueleto, cuyo contrato está en `src/contrato/elegibilidad-v1.yaml`.
-2. **Mensajería asincrónica con intermediario** para las interacciones I-08 a I-13. Se implementa al incorporar notificaciones y seguimiento (E2 a E4); el esqueleto de E1 no la usa.
+Se elige REST frente a gRPC porque I-02 a I-04 parten del navegador (RNF-12) y porque, según PE-U1, la diferencia de latencia entre protocolos es menor a 1 ms frente a un umbral de 300 ms (RNF-01). La mensajería no es el mecanismo principal porque RF-03 y RF-05 necesitan respuesta inmediata.
 
-Se elige REST frente a gRPC porque I-02 a I-04 parten del navegador (RNF-12) y porque, según PE-U1, la diferencia de latencia entre protocolos es menor a 1 ms frente a un umbral de 300 ms (RNF-01). La mensajería no se usa como mecanismo principal porque RF-03 y RF-05 necesitan respuesta inmediata.
+Para RNF-04, elegibilidad responde 503 si el SGA no contesta en 2 s. Postulaciones espera hasta 3 s; ante 503, error de conexión o tiempo agotado registra la postulación como «Enviada» con validación en «Validación pendiente» y repite la consulta cada 60 s hasta recibir 200 o 404.
 
-Para RNF-04, elegibilidad responde 503 si el SGA no contesta en 2 s; postulaciones espera hasta 3 s, registra la postulación en «Validación pendiente» ante 503, error de conexión o tiempo agotado, y repite la consulta cada 60 s hasta recibir 200 o 404.
+Los servicios que publican eventos (I-08 a I-10) los guardan primero en su propia base de datos y los envían al intermediario después de confirmar la operación; si el intermediario no está disponible, el envío se repite y la operación original no se revierte.
 
 ## Consecuencias
 
 - Positivas:
   - Un solo mecanismo para todas las consultas y para la aplicación web, verificable con herramientas comunes.
-  - El contrato de I-05 queda definido antes de programar los servicios A y B.
-  - Los avisos no bloquean la recepción de postulaciones.
+  - El contrato OpenAPI de I-05 es independiente del lenguaje: postulaciones está implementado en Python 3.12 con FastAPI y HTTPX, y elegibilidad puede implementarse con la tecnología que fije el Líder de Desarrollo.
+  - Los avisos no bloquean la recepción de postulaciones y no se pierden si el intermediario falla.
 - Negativas:
-  - Postulaciones depende en línea de elegibilidad; la mitigan el tiempo de espera y el estado «Validación pendiente».
+  - Postulaciones depende en línea de elegibilidad; la mitigan el tiempo de espera y la validación pendiente.
   - La latencia de REST debe medirse en el esqueleto para confirmar RNF-01.
-  - El intermediario de mensajes agrega un contenedor a partir de E2.
+  - El intermediario de mensajes y el registro de eventos pendientes agregan componentes a partir de E2.
 
 ## Requisitos relacionados
 
