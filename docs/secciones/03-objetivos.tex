@@ -1,28 +1,29 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Indicadores propuestos: revisar junto con la responsable de calidad.
 \section{Objetivos}
 \label{sec:objetivos}
 
 \subsection{Objetivo general}
-Diseñar y desarrollar, a lo largo de las cuatro entregas del Proyecto Fin de Curso, una base funcional distribuida para el SGAC de la UTEQ que organice la postulación, selección y seguimiento de ayudantías de cátedra, con trazabilidad de las operaciones e integración simulada de solo lectura con el SGA.
+Desarrollar, a lo largo de las cuatro entregas del Proyecto Fin de Curso, un sistema distribuido para la gestión de ayudantías de cátedra de la UTEQ que cubra la convocatoria, la postulación, la selección, el seguimiento y la certificación, con trazabilidad de las decisiones y una integración de solo lectura con un SGA simulado, en línea con la integración de procesos que persigue la transformación digital universitaria~\cite{souli2025administracion}.
 
-\subsection{Objetivos específicos e indicadores}
+\subsection{Objetivos específicos}
+Cada objetivo de la Tabla~\ref{tab:objetivos} tiene un indicador y una meta comprobable al cierre de la entrega indicada, ligada a un requisito no funcional o a un entregable.
+
 \begingroup\small
-\begin{longtable}{@{}p{.37\textwidth}p{.19\textwidth}p{.16\textwidth}p{.16\textwidth}@{}}
-\caption{Objetivos específicos, indicadores y comprobación}\label{tab:objetivos}\\
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.05\textwidth}>{\raggedright\arraybackslash}p{.33\textwidth}>{\raggedright\arraybackslash}p{.25\textwidth}>{\raggedright\arraybackslash}p{.28\textwidth}@{}}
+\caption{Objetivos específicos, indicadores y metas}\label{tab:objetivos}\\
 \toprule
-\textbf{Objetivo} & \textbf{Indicador} & \textbf{Meta propuesta} & \textbf{Cómo comprobarlo}\\
+\textbf{ID} & \textbf{Objetivo específico} & \textbf{Indicador} & \textbf{Meta y entrega}\\
 \midrule\endfirsthead
-\toprule\textbf{Objetivo} & \textbf{Indicador} & \textbf{Meta propuesta} & \textbf{Cómo comprobarlo}\\\midrule\endhead
+\toprule\textbf{ID} & \textbf{Objetivo específico} & \textbf{Indicador} & \textbf{Meta y entrega}\\\midrule\endhead
 \bottomrule\endfoot
-Definir el flujo de convocatoria y postulación con estados visibles y validación académica simulada. & RF implementados con criterios verificados. & RF-01 a RF-05 cubiertos en E4. & Pruebas de aceptación del flujo. \\
+OE-1 & Especificar los requisitos y la arquitectura base del SGAC. & Porcentaje de RF y RNF trazados a un contenedor del C4, una interacción y un ADR. & 100\,\% de RF-01 a RF-12 y RNF-01 a RNF-12 en la matriz de trazabilidad; ADR-001 y ADR-002 aceptados (E1, 29-11-2026). \\
 \addlinespace
-Documentar la evaluación por méritos y oposición y una publicación reproducible de resultados. & RF de evaluación comprobados. & RF-06 a RF-08 cubiertos en E4. & Casos de prueba de puntajes y orden de mérito. \\
+OE-2 & Garantizar que una falla del SGA no provoque la pérdida de postulaciones. & Postulaciones válidas conservadas y revalidadas tras interrumpir el SGA simulado. & 20 de 20 postulaciones conservadas en «Validación pendiente» y revalidadas, con 0 pérdidas y 0 duplicados (RNF-04, E1; prueba repetida en E4). \\
 \addlinespace
-Registrar planificación, actividades e informes de los ayudantes y el cierre de la ayudantía. & RF de seguimiento comprobados. & RF-09 a RF-12 cubiertos en E4. & Casos de aceptación de horas, informes y certificado. \\
+OE-3 & Desplegar los servicios de ADR-001 de forma independiente en contenedores. & Redespliegues de otros servicios al actualizar uno de ellos. & 0 redespliegues ajenos al actualizar elegibilidad con una versión compatible del contrato (RNF-11, E2). \\
 \addlinespace
-Comprobar la comunicación entre servicios y la continuidad de postulaciones ante una falla del SGA simulado. & Pruebas de integración y contingencia aprobadas. & Comunicación I-05 e incidencia RNF-04 verificadas. & Evidencia de ejecución y pruebas de falla. \\
+OE-4 & Atender la carga de la inscripción con tiempos de respuesta aceptables. & Percentil 95 de la consulta de estado y tasa de errores en el pico. & p95 inferior a 300\,ms con 50 usuarios simultáneos (RNF-01); 350 postulaciones y 100 usuarios con menos del 1\,\% de errores (RNF-02) (E4). \\
+\addlinespace
+OE-5 & Implementar el flujo completo de la ayudantía, desde la convocatoria hasta el certificado. & Criterios de aceptación de RF-01 a RF-12 con prueba automatizada aprobada. & 100\,\% de los criterios de la sección~\ref{sec:requisitos-funcionales} aprobados (E4, 21-02-2027). \\
 \end{longtable}
 \endgroup
-
-Las metas expresan el alcance de diseño y serán revisadas con los acuerdos de ADR-001 y ADR-002 y los requisitos no funcionales que cierre la responsable de calidad. No equivalen a funcionalidades ya implementadas.

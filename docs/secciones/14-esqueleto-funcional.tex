@@ -1,12 +1,11 @@
 % Responsable: MUÑOZ VERA MELANIE MICHELLE.
-% Exigencia: describir servicios minimos, contrato de interfaz,
-% demostracion de comunicacion, pruebas y evidencias verificables.
-% La ejecucion reproducible se documenta en el README al existir servicios.
 \section{Esqueleto funcional}
 \label{sec:esqueleto-funcional}
 
 El esqueleto de E1 implementa la consulta de elegibilidad académica
-(RF-03) con el mecanismo aceptado en ADR-002. La prueba de comunicación
+(RF-03) con el mecanismo aceptado en ADR-002. Los dos servicios están
+implementados: el servicio A de elegibilidad, con el SGA simulado, y el
+servicio B de postulaciones. La prueba de comunicación
 se ejecutó localmente con Python 3.12 y datos sintéticos.
 
 \subsection{Servicios e interfaces}
@@ -76,6 +75,8 @@ identificadores, con \textbf{0 pérdidas y 0 duplicados}. El registro
 del SGA mostró 22 lecturas, incluidas las comprobaciones de arranque,
 y 0 escrituras.
 
-Las mediciones de carga siguen pendientes. Las capturas originales
-se guardarán en \path{evidencias/capturas/} y mostrarán los servicios
-en ejecución, el usuario, el equipo y la fecha y hora del sistema.
+Las mediciones de carga de RNF-01 y RNF-02 corresponden a E4, cuando
+la consulta de estado se ejecute sobre los servicios desplegados. Las
+capturas de la ejecución, con los servicios activos, el usuario, el
+equipo y la fecha y hora del sistema, se ubican en
+\path{evidencias/capturas/}.

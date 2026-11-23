@@ -1,22 +1,43 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Actualizar enlaces tras los nuevos commits y los cierres de issues.
 \section{Tabla de aportes}
 \label{sec:tabla-aportes}
 
-\begin{table}[htbp]
-\centering\small
-\caption{Contribuciones verificables y pendientes de consolidación}
-\begin{tabularx}{\textwidth}{@{}p{3.0cm}X p{2.8cm}@{}}
-\toprule
-\textbf{Integrante} & \textbf{Trabajo registrado} & \textbf{Evidencia en GitHub}\\
-\midrule
-SANCHEZ VERA DARWIN JOEL & Diagramas C4, ADR y desarrollo del servicio B; coordinación de la arquitectura. & \href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/issues/7}{Issue 7}; \href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/commit/62c00497}{commit 62c00497}. \\
-\addlinespace
-MUÑOZ VERA MELANIE MICHELLE & Borradores de requisitos no funcionales, riesgos y referencias de calidad; integración en curso. & \href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/pull/3}{PR 3}; \href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/issues/4}{issue 4}. \\
-\addlinespace
-QUINTERO RICO LUIS DAVID & README, bitácora y base LaTeX; guion y acta preliminar en rama de trabajo. & \href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/pull/5}{PR 5}; \href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/issues/6}{issue 6}. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\newcommand{\cm}[1]{\href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/commit/#1}{\texttt{#1}}}
+\newcommand{\iss}[1]{\href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/issues/#1}{issue~\##1}}
+\newcommand{\pr}[1]{\href{https://github.com/DarwinDevCode/AD_TA-PFC-E1/pull/#1}{PR~\##1}}
 
-\noindent\textbf{Pendiente antes del cierre:} añadir los enlaces de los commits nuevos, los issues efectivamente cerrados y las aportaciones adicionales de cada integrante. Una rama con el acta preliminar no equivale a evidencia de entrevista validada.
+La Tabla~\ref{tab:aportes} resume el trabajo de cada integrante a partir del historial de commits de todas las ramas y de los issues y pull requests del repositorio. Cada identificador enlaza con el commit correspondiente.
+
+\begingroup\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.17\textwidth}>{\raggedright\arraybackslash}p{.36\textwidth}>{\raggedright\arraybackslash}p{.39\textwidth}@{}}
+\caption{Aportes por integrante}\label{tab:aportes}\\
+\toprule
+\textbf{Integrante} & \textbf{Aporte} & \textbf{Evidencia}\\
+\midrule\endfirsthead
+\toprule\textbf{Integrante} & \textbf{Aporte} & \textbf{Evidencia}\\\midrule\endhead
+\bottomrule\endfoot
+SÁNCHEZ VERA DARWIN JOEL (Arquitecto)
+ & Estructura del repositorio y criterios de evidencias. & \cm{d819b5f}, \cm{1d9503f}, \cm{7e815bb}; \iss{14}.\\
+ & Trabajos relacionados y referencias de arquitectura. & \cm{c906414}, \cm{af4c92d}; \iss{15}.\\
+ & Diagramas C4 de niveles 1 y 2. & \cm{44b6e01}, \cm{336950f}, \cm{ba2173c}, \cm{5abfce3}, \cm{63c4a9e}, \cm{043b24f}, \cm{7b0f2f2}; \iss{16}, \iss{20}.\\
+ & ADR-001 y ADR-002, hasta su aceptación. & \cm{a7a9c18}, \cm{7342f1f}, \cm{e100292}, \cm{c20d58e}, \cm{9d0dd37}, \cm{973f4e9}, \cm{d0539f3}; \iss{17}, \iss{19}.\\
+ & Secciones 07 a 11 (justificación, C4, comunicación, CAP/PACELC y ADR). & \cm{cd99fd2}, \cm{85d78a4}, \cm{b41fc14}, \cm{bfa9a9a}, \cm{62c0049}; \iss{21}, \iss{7}.\\
+ & Contratos OpenAPI de I-05 e I-06, versión 1.0.0. & \cm{f10b02b}, \cm{f0f2afa}, \cm{d71a53d}; \iss{22}.\\
+ & Servicio B de postulaciones y sus pruebas. & \cm{97e9b22}, \cm{9f84aa3}; \iss{23}.\\
+\addlinespace
+MUÑOZ VERA MELANIE MICHELLE (Líder de Desarrollo y Responsable de Calidad)
+ & Reglas de trabajo, plantilla de pull request, índice y plantilla de ADR. & \cm{1eb39b9}, \cm{6acb89a}, \cm{d7e8a12}; \pr{2}, \iss{1}.\\
+ & Requisitos no funcionales, análisis de riesgos y referencias de calidad. & \cm{665966c}, \cm{1bbec0f}, \cm{40502ca}, \cm{fae04a0}, \cm{fcf4ef8}, \cm{90d0b15}; \pr{3}, \iss{4}.\\
+ & Matriz de pruebas de los RNF y casos del servicio A. & \cm{9891c27}, \cm{e9aa8e7}, \cm{3a4dc84}.\\
+ & Servicio A de elegibilidad, SGA simulado y prueba de comunicación entre servicios. & \cm{5493f8c}, \cm{4a43481}; \iss{24}, \iss{25}.\\
+ & Sección 14 del esqueleto funcional y prueba de recuperación de 20 postulaciones. & \cm{d432432}, \cm{115014b}, \cm{6c3c917}; \iss{26}.\\
+ & Matriz de trazabilidad alineada con ADR y CAP. & \cm{0178245}, \cm{3fea34e}, \cm{bb7a996}; \iss{27}.\\
+ & Video de presentación y aportes en el README. & \cm{6b23270}; \pr{18}.\\
+\addlinespace
+QUINTERO RICO LUIS DAVID (Responsable de Documentación)
+ & README y formato de la bitácora. & \cm{2412717}, \cm{e9743ae}; \pr{5}.\\
+ & Base LaTeX del documento y generación del PDF. & \cm{50b98ca}; \iss{32}.\\
+ & Guion de entrevista, acta y fuentes LaTeX del levantamiento. & \cm{86f1993}, \cm{bd6c99a}; \pr{10}.\\
+ & Contexto, objetivos, historias de usuario y plan del proyecto. & \cm{7edaaa4}, \cm{13ccad0}; \pr{11}, \iss{6}.\\
+\end{longtable}
+\endgroup

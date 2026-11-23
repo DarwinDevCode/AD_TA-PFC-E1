@@ -1,55 +1,58 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Base: antecedente documental del SGAC; datos de campo por confirmar.
 \section{Contexto y problema}
 \label{sec:contexto-problema}
 
-\subsection{Organización y proceso}
-El Sistema de Gestión de Ayudantías de Cátedra (SGAC) se plantea para la Universidad Técnica Estatal de Quevedo (UTEQ), con énfasis en el proceso de la Facultad de Ciencias de la Computación y Diseño Digital. La ayudantía comprende la convocatoria, postulación, revisión de requisitos, concurso de méritos y oposición, designación, seguimiento de actividades e informes, y certificación. El documento de análisis elaborado previamente en la institución describe estas etapas y sus actores; se utiliza aquí \emph{como antecedente}, no como sustituto de la entrevista de esta entrega~\cite{sgacAntecedente}.
+\subsection{Organización y proceso actual}
+La Universidad Técnica Estatal de Quevedo (UTEQ) incorpora ayudantes de cátedra, estudiantes que apoyan a un docente en una asignatura durante un periodo académico. El SGAC se plantea para este proceso, con énfasis en la Facultad de Ciencias de la Computación y Diseño Digital. Según el análisis de requisitos previo, el proceso comprende la convocatoria, la postulación con documentos, la revisión de requisitos académicos, el concurso de méritos y oposición, la designación, el seguimiento de actividades e informes y la certificación~\cite{sgacAntecedente}. La figura del ayudante tiene efecto directo en el aprendizaje: los estudiantes valoran su competencia y su cercanía, por lo que su selección y acompañamiento no son un trámite menor~\cite{dillard2024teaching}.
 
-Según ese antecedente, parte del trabajo se organiza mediante correos, documentos y archivos separados. Esto obliga a revisar manualmente requisitos y evidencias, dificulta consultar el estado de una solicitud y puede ocasionar duplicación de registros o pérdida de trazabilidad. Son problemas descritos en el estudio previo, no incidencias cuantificadas mediante la entrevista de noviembre de 2026.
+El mismo antecedente describe un trabajo organizado con correos, documentos y archivos separados. Los requisitos y las evidencias se revisan manualmente, el estado de una solicitud es difícil de consultar y pueden duplicarse registros o perderse la trazabilidad de las decisiones~\cite{sgacAntecedente}.
 
-\subsection{Problema que abordará el SGAC}
-La información de una convocatoria atraviesa distintas áreas: el estudiante presenta sus documentos; la coordinación comprueba requisitos y organiza el concurso; la comisión asigna puntajes; el docente y el ayudante registran actividades; las autoridades validan cierres y certificados. Al no disponer de un expediente y estados unificados, es difícil reconstruir qué se recibió, quién revisó cada dato y en qué etapa se encuentra el trámite~\cite{sgacAntecedente}. La literatura sobre administración universitaria destaca la importancia de integrar procesos, información y responsables en la digitalización institucional~\cite{fernandez2023digital,souli2025administracion}.
+La entrevista de levantamiento del 21 de noviembre de 2026, realizada a un ayudante de cátedra y registrada en el acta de \path{evidencias/levantamiento/}, abordó la consulta de información académica en el SGA, la conducta ante sus fallos y la protección de los expedientes. El acta contempla consultar en el SGA la matrícula, las calificaciones y el promedio mediante una integración de solo lectura (P15); registra que, si el SGA no está disponible, la comprobación automática no puede concluir de inmediato (P16); y que conviene conservar las solicitudes válidas en «Validación pendiente» para reintentar la consulta sin pedir una nueva postulación (P17).
 
-\subsection{Consecuencias y datos por medir}
-Para la presente entrega no se dispone de mediciones verificadas de tiempos, costos o errores del proceso actual de la UTEQ. Por ello, la Tabla~\ref{tab:contexto-mediciones} separa la consecuencia identificada del dato que aún debe recogerse. No se atribuyen cifras hipotéticas al entrevistado.
+\subsection{Problema que aborda el SGAC}
+La información de una convocatoria atraviesa varias instancias: el estudiante presenta sus documentos; la coordinación comprueba requisitos y organiza el concurso; la comisión asigna puntajes; el docente y el ayudante registran actividades; y el decanato autoriza resultados y certificados. Sin un expediente con estados unificados es difícil reconstruir qué se recibió, quién revisó cada dato y en qué etapa está el trámite~\cite{sgacAntecedente}. La literatura sobre transformación digital universitaria señala que el beneficio se obtiene al integrar procesos, información y responsables, no al digitalizar documentos aislados~\cite{fernandez2023digital,souli2025administracion}. A ello se suma la dependencia del SGA, sistema externo que el equipo no controla.
+
+\subsection{Consecuencias de no resolverlo}
+No se dispone de mediciones institucionales de tiempos, costos ni errores del proceso actual. La Tabla~\ref{tab:consecuencias} indica el origen de cada consecuencia: el antecedente documental, el acta de la entrevista o una estimación del equipo.
 
 \begin{table}[htbp]
 \centering\small
-\caption{Consecuencias del proceso y mediciones pendientes}
-\label{tab:contexto-mediciones}
-\begin{tabularx}{\textwidth}{@{}p{3.2cm}X p{3.5cm}@{}}
+\caption{Consecuencias de mantener el proceso actual}
+\label{tab:consecuencias}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.4cm}@{}}
 \toprule
-\textbf{Aspecto} & \textbf{Consecuencia documentada o posible} & \textbf{Medición que falta}\\
+\textbf{Aspecto} & \textbf{Consecuencia} & \textbf{Origen}\\
 \midrule
-Postulación y revisión & Demoras al intercambiar documentos y verificar requisitos. & Tiempo real por postulación y por validación.\\
-Seguimiento del trámite & Dificultad para conocer el estado y reconstruir las decisiones. & Consultas y correcciones por convocatoria.\\
-Registro de evaluaciones & Riesgo de recaptura, errores o duplicidad de información. & Frecuencia de errores y rectificaciones.\\
-Consolidación e informes & Tiempo administrativo en reportes y certificados. & Horas de trabajo y plazo hasta el cierre.\\
-Volumen de uso & Carga concentrada durante la inscripción. & Convocatorias, solicitudes y usuarios simultáneos en la UTEQ.\\
+Revisión de requisitos & Verificación manual de documentos y datos académicos, con demoras y riesgo de error. & Antecedente~\cite{sgacAntecedente}.\\
+Seguimiento del trámite & El estudiante no conoce el estado de su solicitud y no es posible reconstruir las decisiones. & Antecedente~\cite{sgacAntecedente}.\\
+Fallo del SGA & Sin un estado intermedio, la solicitud se rechaza o debe repetirse cuando el SGA no responde. & Acta, P16 y P17.\\
+Expedientes y evidencias & Pérdida de expedientes o evidencias de ayudantía sin respaldos periódicos. & Acta, P21.\\
+Registro de evaluaciones & Recaptura de puntajes y posibles diferencias en el orden de mérito. & Estimación del equipo.\\
+Cierre de la convocatoria & Concentración de envíos en el último día de inscripción, con riesgo de saturación. & Estimación del equipo (acta, P12).\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Los escenarios de 350 postulaciones y 100 usuarios simultáneos empleados en los RNF son \emph{metas iniciales de diseño}, no estadísticas institucionales. Deben mantenerse como hipótesis hasta contar con datos y pruebas.
+Las cifras de 350 postulaciones por convocatoria y 100 usuarios simultáneos en el pico son escenarios de diseño del equipo, recogidos en el acta (P10 y P12) sin respaldo estadístico institucional. Se utilizan en todo el documento como base de dimensionamiento.
 
 \subsection{Interesados y expectativas}
+La Tabla~\ref{tab:stakeholders} resume lo que espera cada interesado. Los roles proceden del antecedente~\cite{sgacAntecedente} y coinciden con las personas y sistemas del diagrama de contexto de la sección~\ref{sec:arquitectura-c4}.
+
 \begin{table}[htbp]
 \centering\small
-\caption{Interesados del SGAC y expectativas por validar}
+\caption{Interesados del SGAC y expectativas}
 \label{tab:stakeholders}
-\begin{tabularx}{\textwidth}{@{}p{3.1cm}p{3.2cm}X@{}}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}X@{}}
 \toprule
-\textbf{Interesado} & \textbf{Papel en el proceso} & \textbf{Necesidad considerada en el diseño}\\
+\textbf{Interesado} & \textbf{Papel en el proceso} & \textbf{Qué espera del SGAC}\\
 \midrule
-Estudiante o ayudante & Postula y realiza actividades. & Conocer requisitos, estados y observaciones; registrar horas y evidencias.\\
-Docente & Acompaña y evalúa al ayudante. & Revisar actividades y aprobar u observar informes.\\
-Coordinación de carrera & Gestiona convocatorias y requisitos. & Centralizar documentos, validar elegibilidad y publicar resultados.\\
-Comisión de selección & Evalúa méritos y oposición. & Registrar puntajes y aplicar criterios reproducibles.\\
-Decanato & Autoriza resultados y cierres. & Consultar trazabilidad y autorizar certificados.\\
-Administración del sistema & Controla accesos y configuración. & Gestionar roles, respaldos y registros de auditoría.\\
+Estudiante / ayudante & Postula y, si es designado, ejecuta la ayudantía. & Postular en línea, conocer su estado y observaciones, planificar horas, registrar sesiones y obtener el certificado.\\
+Docente & Avala al postulante y acompaña al ayudante. & Revisar las actividades y aprobar u observar los informes mensuales.\\
+Coordinador de carrera & Gestiona convocatorias y requisitos. & Publicar convocatorias, verificar requisitos sin certificados impresos, revisar documentos y publicar resultados.\\
+Comisión de selección & Evalúa méritos y oposición. & Registrar puntajes con una rúbrica común y obtener un orden de mérito reproducible.\\
+Decano & Autoriza resultados y certificados. & Consultar la trazabilidad del concurso y autorizar la emisión de certificados.\\
+Administrador & Configura y protege el sistema. & Gestionar roles, permisos, rúbricas y respaldos, con registros de auditoría.\\
+SGA (sistema externo) & Fuente de matrícula, notas y promedios. & Recibir solo consultas de lectura, sin escrituras ni cargas que afecten su operación.\\
 \bottomrule
 \end{tabularx}
 \end{table}
-
-Estas expectativas proceden de los roles descritos en el antecedente~\cite{sgacAntecedente}; su conformidad con la situación vigente debe verificarse mediante el levantamiento real. La integración propuesta con el Sistema de Gestión Académica (SGA) será únicamente de lectura, y su viabilidad depende de las autorizaciones y condiciones técnicas institucionales.

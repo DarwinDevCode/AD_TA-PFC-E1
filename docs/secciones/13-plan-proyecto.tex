@@ -1,55 +1,100 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Tablero y cronograma se actualizaran con enlaces y fechas confirmadas.
 \section{Plan del proyecto}
 \label{sec:plan-proyecto}
 
-\subsection{Organización del equipo}
+\subsection{Roles y responsabilidades}
+El equipo tiene tres integrantes y cuatro roles; la Líder de Desarrollo asume también la responsabilidad de calidad. La Tabla~\ref{tab:roles} resume las responsabilidades de cada uno.
+
 \begin{table}[htbp]
 \centering\small
-\caption{Responsabilidades para TA-PFC-E1}
-\begin{tabularx}{\textwidth}{@{}p{3.7cm}p{3.0cm}X@{}}
+\caption{Roles y responsabilidades del equipo}
+\label{tab:roles}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}X@{}}
 \toprule
-\textbf{Integrante} & \textbf{Rol} & \textbf{Responsabilidades principales}\\
+\textbf{Integrante} & \textbf{Rol} & \textbf{Responsabilidades}\\
 \midrule
-SANCHEZ VERA DARWIN JOEL & Arquitecto & ADR, diagramas C4, comunicación, CAP/PACELC, contratos y servicio B.\\
-MUÑOZ VERA MELANIE MICHELLE & Desarrollo y calidad & RNF, riesgos, servicio A, pruebas, ejecución y control de calidad.\\
-QUINTERO RICO LUIS DAVID & Documentación & Entrevista, contexto, objetivos, RF, referencias, portada, resumen, plan, integración LaTeX, bitácora, README y coordinación del video.\\
+SÁNCHEZ VERA DARWIN JOEL & Arquitecto & Estructura del repositorio, trabajos relacionados, ADR-001 y ADR-002, diagramas C4, modelo de comunicación, CAP/PACELC, contratos de I-05 e I-06, servicio B de postulaciones y riesgos derivados de FORM-AC-01.\\
+MUÑOZ VERA MELANIE MICHELLE & Líder de Desarrollo y Responsable de Calidad & Reglas de trabajo del repositorio, servicio A de elegibilidad y SGA simulado, prueba de comunicación entre servicios, RNF, análisis de riesgos, matriz de trazabilidad, esqueleto funcional y capturas de ejecución.\\
+QUINTERO RICO LUIS DAVID & Responsable de Documentación & Base LaTeX del documento, guion y acta de la entrevista, contexto, objetivos, requisitos funcionales, referencias de contexto, plan del proyecto, tabla de aportes, README y bitácora.\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Tablero y seguimiento de trabajo}
-El equipo utiliza el repositorio público \url{https://github.com/DarwinDevCode/AD_TA-PFC-E1}. Los issues registrados permiten identificar responsabilidades, revisar cambios mediante pull requests y registrar avances. Para la entrega final se deberá adjuntar el enlace exacto al tablero de GitHub Projects, con issues de E1 y E2 asignados y sus estados actualizados.
-
+\subsection{Tablero de seguimiento}
+El trabajo se gestiona en el tablero de GitHub Projects «SGAC -- Plan del proyecto (E1 a E4)», disponible en \url{https://github.com/users/DarwinDevCode/projects/14}, vinculado al repositorio \url{https://github.com/DarwinDevCode/AD_TA-PFC-E1}. El tablero presenta los issues en una vista de tabla con los siguientes campos, que permiten agrupar y filtrar el trabajo:
 \begin{itemize}
-  \item Issue de requisitos y referencias de contexto: \url{https://github.com/DarwinDevCode/AD_TA-PFC-E1/issues/6}.
-  \item Issue de arquitectura: \url{https://github.com/DarwinDevCode/AD_TA-PFC-E1/issues/7}.
-  \item Issue de RNF, riesgos y referencias de calidad: \url{https://github.com/DarwinDevCode/AD_TA-PFC-E1/issues/4}.
-  \item \textbf{Tablero GitHub Projects E1/E2:} PENDIENTE DE DEFINIR.
+  \item \textbf{Estado:} Por hacer, En curso, En revisión y Hecho.
+  \item \textbf{Entrega:} E1, E2, E3 y E4.
+  \item \textbf{Componente:} documento, arquitectura, servicio B, servicio A, SGA simulado, contratos de API, mensajería, servicios de evaluación, seguimiento y notificaciones, contenedores, evidencias y gestión.
+  \item \textbf{Rol:} Arquitecto, Desarrollo y calidad, y Documentación.
 \end{itemize}
+Cada entrega tiene un issue principal con su alcance y fechas (\#9 para E1, \#8 para E2, \#12 para E3 y \#13 para E4), y los cambios se integran mediante pull requests.
+
+\subsection{Issues de E1 y E2 por integrante}
+La Tabla~\ref{tab:issues} agrupa los issues registrados en el repositorio según su responsable. El issue \#9 de E1 está asignado a los tres integrantes.
+
+\begingroup\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.24\textwidth}>{\raggedright\arraybackslash}p{.08\textwidth}>{\raggedright\arraybackslash}p{.48\textwidth}>{\raggedright\arraybackslash}p{.11\textwidth}@{}}
+\caption{Issues de E1 y E2 por integrante}\label{tab:issues}\\
+\toprule
+\textbf{Integrante} & \textbf{Issue} & \textbf{Título} & \textbf{Entrega}\\
+\midrule\endfirsthead
+\toprule\textbf{Integrante} & \textbf{Issue} & \textbf{Título} & \textbf{Entrega}\\\midrule\endhead
+\bottomrule\endfoot
+SÁNCHEZ VERA DARWIN JOEL & \#14 & Preparar la estructura de carpetas del repositorio & E1\\
+ & \#15 & Redactar los trabajos relacionados y las referencias de arquitectura & E1\\
+ & \#16 & Elaborar el diagrama C4 de nivel 1 & E1\\
+ & \#17 & Registrar ADR-001 sobre el estilo de arquitectura & E1\\
+ & \#19 & Registrar ADR-002 sobre el mecanismo de comunicación & E1\\
+ & \#20 & Elaborar el diagrama C4 de nivel 2 & E1\\
+ & \#21 & Redactar las secciones 07, 09, 10 y 11 & E1\\
+ & \#22 & Definir los contratos de API de I-05 e I-06 & E1\\
+ & \#23 & Implementar el servicio B de postulaciones y sus pruebas & E1\\
+ & \#29 & Probar el servicio B con el servicio A real & E1\\
+ & \#30 & Aportar los riesgos del incidente de FORM-AC-01 & E1\\
+ & \#31 & Registrar las fotografías de las sesiones de diseño y el primer bosquejo & E1\\
+ & \#7 & Alinear C4, ADR, comunicación y CAP con los requisitos & E1\\
+ & \#8 & Microservicios, API y contenedores & E2\\
+\addlinespace
+MUÑOZ VERA MELANIE MICHELLE & \#1 & Preparar el repositorio y la documentación de ADR & E1\\
+ & \#4 & Preparar los borradores de requisitos no funcionales, riesgos y referencias & E1\\
+ & \#24 & Implementar el servicio A de elegibilidad y el SGA simulado & E1\\
+ & \#25 & Automatizar la prueba de comunicación entre servicios & E1\\
+ & \#26 & Redactar la sección del esqueleto funcional y las instrucciones de ejecución & E1\\
+ & \#27 & Revisar la coherencia con la matriz de trazabilidad & E1\\
+ & \#28 & Registrar las capturas de ejecución del esqueleto & E1\\
+\addlinespace
+QUINTERO RICO LUIS DAVID & \#6 & Completar la trazabilidad de los RF y la bibliografía de contexto & E1\\
+ & \#32 & Crear la base del documento LaTeX & E1\\
+\end{longtable}
+\endgroup
 
 \subsection{Cronograma de entregas}
+La Tabla~\ref{tab:cronograma} presenta las cuatro entregas del Proyecto Fin de Curso. Las semanas se cuentan desde el inicio del periodo académico, el 26 de octubre de 2026.
+
 \begin{table}[htbp]
 \centering\small
-\caption{Etapas del Proyecto Fin de Curso}
-\begin{tabularx}{\textwidth}{@{}p{1.2cm}p{1.9cm}X p{2.9cm}@{}}
+\caption{Cronograma de las entregas del Proyecto Fin de Curso}
+\label{tab:cronograma}
+\begin{tabularx}{\textwidth}{@{}p{1.7cm}p{1.7cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}X@{}}
 \toprule
-\textbf{Fase} & \textbf{Semana} & \textbf{Resultado esperado} & \textbf{Fecha confirmada}\\
+\textbf{Entrega} & \textbf{Semana} & \textbf{Fechas} & \textbf{Contenido}\\
 \midrule
-E1 & 5 & Problema, requisitos, arquitectura y esqueleto mínimo. & 29-11-2026, 23:55\\
-E2 & 9 & Microservicios, API y contenedores. & Pendiente del encuadre\\
-E3 & 13 & Datos distribuidos y procesamiento. & Pendiente del encuadre\\
-E4 & 17 & Integración final, calidad, pruebas y defensa. & Pendiente del encuadre\\
+E1 & 5 & 23 al 29-11-2026; entrega el 29-11-2026, 23:55 & Problema, objetivos, RF y RNF, ADR-001 y ADR-002, C4 de niveles 1 y 2, CAP/PACELC, riesgos y esqueleto con los servicios de postulaciones y elegibilidad.\\
+\addlinespace
+E2 & 9 & 21 al 27-12-2026 & Servicios de ADR-001 con sus API documentadas, contenedores por servicio e intermediario de mensajes para los avisos.\\
+\addlinespace
+E3 & 13 & 18 al 24-01-2027 & Base de datos propia por servicio, replicación y procesamiento distribuido de los datos del concurso.\\
+\addlinespace
+E4 & 17 & 15 al 21-02-2027 & Sistema final con aplicación web, pruebas de los RNF, evaluación de calidad y defensa.\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Hitos inmediatos de E1}
+\subsection{Actividades de la semana de E1}
 \begin{itemize}
- \item 23--24 de noviembre: contrastar las necesidades de la entrevista y revisar contexto, objetivos y RF.
- \item 25--26 de noviembre: completar RNF y riesgos, integrar archivos y compilar el informe.
- \item 27--28 de noviembre: probar la ejecución desde un clon limpio; verificar evidencias, declaraciones, referencias y grabar el video.
- \item 29 de noviembre: revisar el PDF final, la URL pública y subir al SGA el PDF identificativo de una página.
+  \item 23 y 24 de noviembre: integrar las secciones del documento y alinear los RF con el acta de la entrevista.
+  \item 25 y 26 de noviembre: revisar RNF, riesgos y trazabilidad; compilar el informe.
+  \item 27 y 28 de noviembre: ejecutar el esqueleto desde un clon limpio, registrar las capturas y grabar el video.
+  \item 29 de noviembre: revisar el PDF final y subir la entrega a la plataforma de la asignatura.
 \end{itemize}
-
-El cronograma es una \emph{planificación}, no prueba de que las actividades se hayan realizado. El estado efectivo de cada hito debe verse en commits, issues y evidencias del repositorio.

@@ -1,45 +1,117 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Propuestas trazadas al antecedente. Falta confirmar cada RF en entrevista real.
 \section{Requisitos funcionales}
 \label{sec:requisitos-funcionales}
 
-Se proponen doce historias de usuario, organizadas por las etapas del SGAC y compatibles con las capacidades de negocio definidas en ADR-001. Los criterios de aceptación describen comportamientos verificables, no funciones ya implementadas. La fuente documental inicial es el estudio de requisitos anterior~\cite{sgacAntecedente}; \textbf{la validación con respuestas reales de la entrevista de esta entrega está pendiente}. La referencia a dicho antecedente no sustituye el levantamiento obligatorio.
+Los doce requisitos funcionales se expresan como historias de usuario con criterios de aceptación en formato Dado/Cuando/Entonces. Se agrupan en convocatoria y postulación (RF-01 a RF-05), evaluación (RF-06 a RF-08) y seguimiento y cierre (RF-09 a RF-12). Los actores y las etapas proceden del análisis de requisitos previo~\cite{sgacAntecedente}; RF-02, RF-03 y RF-05 incorporan además lo registrado en el acta de la entrevista (P13, P15 a P17). Cada requisito se asigna al contenedor del C4 que lo implementa (sección~\ref{sec:arquitectura-c4}).
 
-\begingroup\footnotesize
-\begin{longtable}{@{}p{.06\textwidth}p{.31\textwidth}p{.36\textwidth}p{.07\textwidth}p{.08\textwidth}@{}}
-\caption{Requisitos funcionales propuestos para el SGAC}\label{tab:rf}\\
+\newcommand{\rfcriterio}[3]{\item \textbf{Dado} #1, \textbf{cuando} #2, \textbf{entonces} #3.}
+
+\subsection{Convocatoria y postulación}
+
+\paragraph{RF-01. Publicar convocatoria.} Como coordinador de carrera, quiero publicar una convocatoria con asignatura, requisitos, cupos y fechas, para que los estudiantes conozcan las condiciones y plazos de postulación.
+\begin{itemize}
+  \rfcriterio{una convocatoria sin asignatura, cupos o fechas}{el coordinador intenta publicarla}{el sistema rechaza la publicación e indica los campos faltantes}
+  \rfcriterio{una convocatoria completa}{el coordinador la publica}{queda visible para los estudiantes con sus requisitos y plazos}
+\end{itemize}
+
+\paragraph{RF-02. Enviar postulación.} Como estudiante, quiero enviar mi solicitud con los documentos requeridos, para participar en el concurso de una convocatoria.
+\begin{itemize}
+  \rfcriterio{una convocatoria abierta y los documentos requeridos}{el estudiante envía la solicitud}{el sistema la guarda, confirma la recepción y muestra el estado «Enviada»}
+  \rfcriterio{una postulación ya registrada para la misma convocatoria}{el estudiante la envía otra vez}{el sistema rechaza el duplicado y conserva la postulación original}
+  \rfcriterio{una convocatoria cuyo plazo terminó}{el estudiante intenta postular}{el sistema rechaza el envío e informa el cierre del plazo}
+\end{itemize}
+
+\paragraph{RF-03. Verificar requisitos académicos.} Como coordinador de carrera, quiero que el sistema verifique la matrícula, la nota de la asignatura y el promedio del postulante consultando el SGA en modo de solo lectura, para revisar los requisitos académicos sin certificados impresos.
+\begin{itemize}
+  \rfcriterio{una postulación enviada y el SGA disponible}{se consulta la elegibilidad}{cada requisito se registra como «Cumple», «No cumple» o «Dato faltante», con la fecha de consulta}
+  \rfcriterio{un estudiante sin registro en el SGA}{se consulta la elegibilidad}{la validación queda como «Sin registro académico» y no se reintenta}
+  \rfcriterio{el SGA sin respuesta}{se consulta la elegibilidad}{la postulación permanece «Enviada» con validación en «Validación pendiente» y se revalida al recuperarse el SGA, sin crear otra postulación}
+\end{itemize}
+
+\paragraph{RF-04. Revisar documentos.} Como coordinador de carrera, quiero revisar los anexos y registrar observaciones, para solicitar correcciones al postulante.
+\begin{itemize}
+  \rfcriterio{una postulación con anexos}{el coordinador revisa cada documento}{puede marcarlo «Aprobado» u «Observado» y el sistema guarda el revisor y la fecha}
+  \rfcriterio{un documento observado}{el estudiante consulta su postulación}{ve la observación y el documento que debe corregir}
+\end{itemize}
+
+\paragraph{RF-05. Consultar estado y recibir avisos.} Como estudiante, quiero consultar el estado de mi postulación y recibir avisos de sus cambios, para seguir el trámite sin acudir a la coordinación.
+\begin{itemize}
+  \rfcriterio{una postulación registrada}{el estudiante consulta su estado}{el sistema muestra el último estado registrado y sus observaciones}
+  \rfcriterio{un cambio de estado de la postulación}{el cambio queda registrado}{se emite un aviso al correo institucional del estudiante sin bloquear la operación que lo originó}
+\end{itemize}
+
+\subsection{Evaluación}
+
+\paragraph{RF-06. Calificar méritos.} Como miembro de la comisión de selección, quiero calificar los méritos de cada postulante por rubro, para aplicar la misma rúbrica a todos.
+\begin{itemize}
+  \rfcriterio{un puntaje negativo o mayor que el máximo del rubro}{el evaluador lo registra}{el sistema lo rechaza e indica el límite}
+  \rfcriterio{un puntaje válido}{el evaluador lo registra}{el sistema guarda el puntaje, el evaluador y la fecha}
+\end{itemize}
+
+\paragraph{RF-07. Registrar la oposición.} Como miembro de la comisión de selección, quiero sortear el tema y registrar el puntaje de la prueba de oposición, para dejar constancia del concurso.
+\begin{itemize}
+  \rfcriterio{los temas del sílabo de la asignatura}{la comisión realiza el sorteo}{el sistema asigna un tema, registra la citación y la notifica al postulante}
+  \rfcriterio{la prueba de oposición realizada}{la comisión registra el puntaje}{el sistema valida el máximo de la rúbrica y guarda el evaluador y la fecha}
+\end{itemize}
+
+\paragraph{RF-08. Consolidar y publicar resultados.} Como coordinador de carrera, quiero consolidar las calificaciones y publicar los resultados, para establecer un orden de mérito trazable.
+\begin{itemize}
+  \rfcriterio{todas las postulaciones validadas y calificadas}{el coordinador consolida}{el sistema suma méritos y oposición, aplica el criterio de desempate y respeta los cupos publicados}
+  \rfcriterio{postulaciones validadas que no están disponibles}{el coordinador intenta consolidar}{el sistema no publica un orden de mérito con datos incompletos}
+  \rfcriterio{resultados publicados}{se registra la publicación}{se notifica a los postulantes y se crean las ayudantías designadas}
+\end{itemize}
+
+\subsection{Seguimiento y cierre}
+
+\paragraph{RF-09. Registrar sesiones.} Como ayudante, quiero registrar sesiones, tareas, asistencia y evidencias, para respaldar las actividades de mi ayudantía.
+\begin{itemize}
+  \rfcriterio{una sesión sin fecha o sin tema}{el ayudante intenta guardarla}{el sistema la rechaza}
+  \rfcriterio{una sesión completa}{el ayudante la guarda}{queda vinculada a su ayudantía y disponible para la revisión del docente}
+\end{itemize}
+
+\paragraph{RF-10. Validar la planificación semanal.} Como ayudante, quiero que el sistema valide mi planificación semanal, para no superar la carga horaria permitida.
+\begin{itemize}
+  \rfcriterio{una planificación que supera 20 horas semanales o con actividades solapadas}{el ayudante la guarda}{el sistema la rechaza e informa la causa}
+  \rfcriterio{una ayudantía aún no registrada en seguimiento}{el ayudante intenta planificar}{el sistema no acepta la planificación hasta que la ayudantía exista}
+\end{itemize}
+
+\paragraph{RF-11. Revisar el informe mensual.} Como docente, quiero aprobar u observar el informe mensual del ayudante, para dejar constancia de la revisión.
+\begin{itemize}
+  \rfcriterio{un informe mensual enviado}{el docente lo abre}{el sistema muestra las sesiones y evidencias del periodo}
+  \rfcriterio{la revisión del docente}{registra la aprobación o la observación}{el sistema la guarda y avisa al ayudante}
+\end{itemize}
+
+\paragraph{RF-12. Obtener el certificado.} Como ayudante, quiero obtener el certificado una vez aprobadas mis actividades, para acreditar mi labor.
+\begin{itemize}
+  \rfcriterio{el informe final sin aprobar o sin la autorización del decano}{el ayudante solicita el certificado}{el sistema no lo emite e indica la aprobación faltante}
+  \rfcriterio{el informe final aprobado y la autorización del decano}{el ayudante solicita el certificado}{el sistema lo emite con asignatura, periodo y horas, y registra quién lo autorizó}
+\end{itemize}
+
+\subsection{Resumen}
+La Tabla~\ref{tab:rf-resumen} relaciona cada requisito con su actor principal, su prioridad y el contenedor del C4 responsable. La prioridad alta corresponde al flujo que debe operar durante la inscripción y el concurso; la media, al seguimiento posterior a la designación.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Resumen de los requisitos funcionales}
+\label{tab:rf-resumen}
+\begin{tabularx}{\textwidth}{@{}p{1.3cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.8cm}p{2.0cm}>{\raggedright\arraybackslash}p{3.6cm}@{}}
 \toprule
-\textbf{ID} & \textbf{Historia de usuario} & \textbf{Criterios de aceptación} & \textbf{Prior.} & \textbf{Fuente}\\
-\midrule\endfirsthead
-\toprule\textbf{ID} & \textbf{Historia de usuario} & \textbf{Criterios de aceptación} & \textbf{Prior.} & \textbf{Fuente}\\\midrule\endhead
-\bottomrule\endfoot
-RF-01 & Como coordinador, quiero publicar convocatorias con requisitos, cupos y fechas para informar las postulaciones. & No publicar si falta asignatura, cupos o fechas; mostrar convocatoria y plazos; emitir aviso al publicarla. & Alta & Anteced. \\
-\addlinespace
-RF-02 & Como estudiante, quiero enviar mi solicitud con los documentos requeridos para participar en el concurso. & Aceptar solo dentro de plazo; validar formato de anexos; confirmar recepción y mostrar estado «Enviada». & Alta & Anteced. \\
-\addlinespace
-RF-03 & Como coordinador, quiero comprobar matrícula, nota y promedio mediante consulta al SGA para revisar requisitos académicos. & Solo consultas de lectura; registrar resultado y fecha; distinguir «Cumple», «No cumple» y «Dato faltante». & Alta & Anteced. \\
-\addlinespace
-RF-04 & Como coordinador, quiero revisar anexos y registrar observaciones para solicitar correcciones al postulante. & Marcar cada documento «Aprobado» u «Observado»; mostrar observación al estudiante; conservar revisor y fecha. & Alta & Anteced. \\
-\addlinespace
-RF-05 & Como estudiante, quiero consultar mi estado y recibir avisos para seguir el trámite. & Mostrar el último estado registrado; avisar tras un cambio; permitir consultar observaciones. & Alta & Anteced. \\
-\addlinespace
-RF-06 & Como miembro de la comisión, quiero calificar los méritos por rubro para aplicar la misma rúbrica. & Restringir puntajes a límites configurados; rechazar negativos; registrar evaluador y fecha. & Alta & Anteced. \\
-\addlinespace
-RF-07 & Como miembro de la comisión, quiero sortear tema y registrar la oposición para dejar constancia del concurso. & Sortear un tema del sílabo; registrar citación; validar los máximos de puntajes de la rúbrica. & Alta & Anteced. \\
-\addlinespace
-RF-08 & Como coordinador, quiero consolidar calificaciones y publicar resultados para establecer un orden de mérito trazable. & Sumar méritos y oposición; aplicar elegibilidad y desempates aprobados; registrar y notificar el resultado. & Alta & Anteced. \\
-\addlinespace
-RF-09 & Como ayudante, quiero registrar sesiones, tareas, asistencia y evidencias para respaldar mis actividades. & Exigir fecha y tema; vincular sesión con ayudantía; permitir revisión al docente. & Media & Anteced. \\
-\addlinespace
-RF-10 & Como ayudante, quiero validar mi planificación semanal para no superar la carga permitida. & Rechazar solapamientos; comprobar tope semanal definido en la normativa vigente; informar la causa del rechazo. & Media & Anteced. \\
-\addlinespace
-RF-11 & Como docente, quiero aprobar u observar el informe mensual para dejar constancia de la revisión. & Mostrar sesiones y evidencias; registrar aprobación u observación; notificar al ayudante. & Media & Anteced. \\
-\addlinespace
-RF-12 & Como ayudante, quiero obtener el certificado tras las aprobaciones correspondientes para acreditar mi labor. & Exigir cierre e informe final aprobados; incluir asignatura, periodo y horas; dejar rastro de autorización. & Media & Anteced. \\
-\end{longtable}
-\endgroup
+\textbf{ID} & \textbf{Requisito} & \textbf{Actor} & \textbf{Prioridad} & \textbf{Servicio (C4)}\\
+\midrule
+RF-01 & Publicar convocatoria & Coordinador & Alta & Postulaciones\\
+RF-02 & Enviar postulación & Estudiante & Alta & Postulaciones\\
+RF-03 & Verificar requisitos académicos & Coordinador & Alta & Elegibilidad (I-05, I-06)\\
+RF-04 & Revisar documentos & Coordinador & Alta & Postulaciones\\
+RF-05 & Consultar estado y recibir avisos & Estudiante & Alta & Postulaciones y Notificaciones\\
+RF-06 & Calificar méritos & Comisión & Alta & Evaluación\\
+RF-07 & Registrar la oposición & Comisión & Alta & Evaluación\\
+RF-08 & Consolidar y publicar resultados & Coordinador & Alta & Evaluación\\
+RF-09 & Registrar sesiones & Ayudante & Media & Seguimiento\\
+RF-10 & Validar la planificación semanal & Ayudante & Media & Seguimiento\\
+RF-11 & Revisar el informe mensual & Docente & Media & Seguimiento\\
+RF-12 & Obtener el certificado & Ayudante y decano & Media & Seguimiento\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\subsection{Trazabilidad y validaciones pendientes}
-Las doce historias se corresponden con convocatoria y postulación (RF-01 a RF-05), evaluación (RF-06 a RF-08) y seguimiento y cierre (RF-09 a RF-12). La fuente de la última columna es la revisión documental, no una respuesta atribuida al entrevistado. Antes de dar los RF por confirmados, se debe añadir a cada uno el identificador exacto de la respuesta real del acta o ajustar el requisito si aquella lo contradice.
-
-También deben verificarse la vigencia de los plazos, la rúbrica, el criterio de desempate, el máximo semanal de horas y los permisos del decanato. Los números establecidos en fuentes anteriores no se adoptan automáticamente como normativa vigente. La integración SGA y la gestión de fallos se conectan con RNF-04 y RNF-10; los valores de desempeño pertenecen a la sección de requisitos no funcionales de la responsable de calidad.
+El tope de 20 horas semanales de RF-10, el criterio de desempate de RF-08 y la rúbrica de RF-06 y RF-07 se adoptan como supuestos de diseño del equipo hasta contrastarlos con la normativa vigente de la UTEQ.
