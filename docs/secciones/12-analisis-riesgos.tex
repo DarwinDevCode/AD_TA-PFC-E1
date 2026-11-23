@@ -1,5 +1,45 @@
-% Responsable: MUÑOZ VERA MELANIE MICHELLE.
-% Exigencia: identificar al menos cinco riesgos, incluyendo tres derivados
-% del caso trabajado en FORM-AC-01, con impacto y mitigaciones.
-% No atribuir experiencias o resultados que el equipo no verifico.
 \section{Análisis de riesgos}
+\label{sec:analisis-riesgos}
+
+\textbf{Estimaciones preliminares.}
+Probabilidad e impacto son estimaciones cualitativas para discusión. Una probabilidad media
+corresponde a una falla plausible cuya frecuencia local no está documentada.
+Un impacto alto puede interrumpir la inscripción, alterar una decisión de selección
+o comprometer datos necesarios para concluir el proceso.
+
+R-05, R-06 y R-07 son propuestas derivadas del informe público de Fastly \cite{rockwell2021outage}.
+Darwin debe contrastar cada una con la lección correspondiente de FORM-AC-01 antes de cerrar la
+sección. ADR-001 asigna cada dato a un servicio. Según el análisis CAP/PACELC
+(sección~\ref{sec:analisis-cap}), la recepción de postulaciones y los avisos priorizan
+disponibilidad ante una partición. Elegibilidad, puntajes, cupos y orden de mérito priorizan
+consistencia. ADR-002 define las consultas REST y reserva RabbitMQ para los avisos de E2 a E4.
+Ante una caída del intermediario, el productor conserva el evento en su base y reintenta el
+envío sin revertir la operación original. Esta mitigación queda por verificar cuando se
+incorpore la mensajería. Los ensayos de robustez y las pruebas automatizadas de sistema
+son referencias para diseñar las verificaciones
+\cite{giamattei2024automated,arcuri2023building}.
+
+\begingroup
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.09\linewidth}>{\raggedright\arraybackslash}p{.29\linewidth}>{\raggedright\arraybackslash}p{.21\linewidth}>{\raggedright\arraybackslash}p{.28\linewidth}@{}}
+\toprule
+ID & Riesgo y origen & Probabilidad e impacto & Mitigación \\
+\midrule
+\endfirsthead
+\toprule
+ID & Riesgo y origen & Probabilidad e impacto & Mitigación \\
+\midrule
+\endhead
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+R-01 & El SGA tarda o deja de responder durante la inscripción. \par\textit{Origen.} ADR-001 y ADR-002; RNF-04, RNF-10. & Media / Alto. La dependencia es externa y una espera prolongada puede impedir la validación. & Acotar las esperas en I-05 e I-06. Si el SGA no responde, Elegibilidad devuelve 503 y Postulaciones conserva la solicitud «Enviada» con «Validación pendiente» para reintentar. La sección~\ref{sec:esqueleto-funcional} registra la recuperación observada con el SGA simulado. \\ \addlinespace
+R-02 & El pico de carga del último día satura postulaciones. \par\textit{Origen.} ADR-001; RNF-01 a RNF-03. & Media / Alto. El plazo concentra los envíos y una sobrecarga podría dejar postulaciones fuera. & Escalar Postulaciones de forma independiente según ADR-001. Ensayar el pico con un perfil de carga provisional, medir latencia y errores y comprobar que cada envío confirmado quedó persistido. Validar el perfil con datos institucionales. \\ \addlinespace
+R-03 & Un fallo durante el registro de puntajes deja calificaciones incompletas. \par\textit{Origen.} Evaluación y consolidación (RF-06 a RF-08); RNF-05, RNF-07. & Media / Alto. Una nota omitida cambia el orden de mérito. & Guardar puntajes en transacciones de Evaluación y rechazar el registro si el servicio no lo confirma. Ensayar restauración y conciliación. Si faltan las postulaciones validadas de I-07, aplazar la consolidación y la publicación. \\ \addlinespace
+R-04 & Dos evaluadores actualizan un puntaje a la vez y el orden de mérito usa versiones distintas. \par\textit{Origen.} Evaluación (RF-06 a RF-08); RNF-07 y decisión CAP/PACELC de puntajes y orden de mérito. & Media / Alto. Una actualización sobrescrita puede alterar la selección. & Rechazar la escritura sobre una versión anterior y pedir al evaluador que revise el puntaje vigente. Calcular el orden de mérito con un único conjunto consolidado. Ensayar dos ediciones simultáneas del mismo puntaje. \\ \addlinespace
+R-05 & Una configuración válida activa un defecto latente en elegibilidad. \par\textit{Origen.} Fastly: un cambio válido activó un defecto ya presente. RNF-04 y ADR-002. & Media / Alto. Un parámetro compatible puede cambiar el comportamiento ante fallos. & Probar cambios de configuración contra los contratos de I-05 e I-06. Comprobar que una falla del SGA se distingue de un resultado académico y deja la validación pendiente. Repetir la comprobación tras cada cambio. \\ \addlinespace
+R-06 & Una falla de elegibilidad se propaga a toda la recepción de postulaciones. \par\textit{Origen.} Fastly: el fallo alcanzó gran parte de su red. RNF-03, RNF-04, RNF-11. & Media / Alto. Si se agotan recursos de espera, recibir nuevas solicitudes puede fallar. & Mantener Elegibilidad aislada según ADR-001, limitar esperas y concurrencia y persistir las solicitudes válidas aunque falle I-05. Probar el corte del enlace entre ambos servicios bajo carga y comprobar la revalidación al recuperarlo. \\ \addlinespace
+R-07 & Un despliegue defectuoso se detecta tarde o tarda en revertirse en plena inscripción. \par\textit{Origen.} Fastly: el monitoreo detectó la interrupción y aislar la configuración permitió empezar a recuperar el servicio. RNF-03, RNF-11. & Media / Alto. Una recuperación tardía consume la ventana de inscripción. & Monitorear el flujo desde el envío hasta la confirmación. Ensayar la reversión de Elegibilidad a una versión compatible con I-05 sin redesplegar Postulaciones y comprobar el flujo tras la reversión. \\ \addlinespace
+\end{longtable}
+\endgroup

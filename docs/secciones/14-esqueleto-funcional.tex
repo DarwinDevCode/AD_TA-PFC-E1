@@ -3,3 +3,79 @@
 % demostracion de comunicacion, pruebas y evidencias verificables.
 % La ejecucion reproducible se documenta en el README al existir servicios.
 \section{Esqueleto funcional}
+\label{sec:esqueleto-funcional}
+
+El esqueleto de E1 implementa la consulta de elegibilidad académica
+(RF-03) con el mecanismo aceptado en ADR-002. La prueba de comunicación
+se ejecutó localmente con Python 3.12 y datos sintéticos.
+
+\subsection{Servicios e interfaces}
+
+En I-05, postulaciones (\path{src/servicio-b-postulaciones/}) solicita
+al servicio de elegibilidad (\path{src/servicio-a-elegibilidad/}) la
+verificación de matrícula, nota y promedio de un estudiante. En I-06,
+elegibilidad consulta el registro académico en el SGA simulado en modo
+de solo lectura. Los tres procesos intercambian JSON mediante REST
+sobre HTTP.
+
+I-05 se rige por la versión 1.0.0 de
+\path{src/contrato/elegibilidad-v1.yaml}. Elegibilidad ofrece
+\texttt{GET} \path{/salud} y \texttt{GET}
+\path{/estudiantes/{estudianteId}/elegibilidad} dentro de
+\path{/api/v1}. La consulta requiere el código de \texttt{asignatura}.
+Con los datos del SGA, la operación devuelve \texttt{200} con los
+resultados por requisito y la fecha de consulta en UTC. El contrato
+define \texttt{400} para parámetros inválidos, \texttt{404} para un
+estudiante sin registro y \texttt{503} cuando falla la consulta al
+SGA, cuyo límite de espera es de 2 segundos. La interfaz de I-06 se
+describe en \path{src/contrato/sga-simulado-v1.yaml}.
+
+\subsection{Prueba de comunicación}
+
+La prueba reproducible está en \path{src/pruebas/prueba-comunicacion.py}.
+El script arranca los tres procesos en puertos locales disponibles y
+usa una base SQLite temporal para postulaciones. Ejecuta consultas
+desde B hacia A, detiene el SGA y lo vuelve a arrancar para comprobar
+la revalidación. Los pasos de instalación y ejecución se describen en
+el \texttt{README.md}. El catálogo de casos y registros sintéticos
+está en \path{src/pruebas/casos-servicio-a.md}.
+
+\subsection{Resultados y evidencias}
+
+\begin{itemize}
+  \item B recibió \texttt{ELEGIBLE} para \texttt{EST-001},
+    \path{NO_ELEGIBLE} para \texttt{EST-003} e \texttt{INCOMPLETO}
+    para \texttt{EST-008}. Para \texttt{EST-999} distinguió el
+    \texttt{404} y registró «Sin registro académico».
+  \item Con el SGA detenido, A devolvió \texttt{503} y
+    \texttt{Retry-After: 60}. B conservó la postulación de
+    \texttt{EST-002} como «Enviada», con estado de validación
+    «Validación pendiente». Con el intervalo de reintento configurado
+    en 60 segundos, B revalidó el mismo registro sin duplicarlo. La
+    revalidación se observó 53,5 segundos después de comprobar que el
+    simulador volvía a responder.
+  \item El registro del SGA simulado mostró 7 solicitudes de lectura,
+    incluidas las comprobaciones de arranque, y 0 escrituras.
+\end{itemize}
+
+\subsubsection{Recuperación de 20 postulaciones (RNF-04)}
+
+En una segunda ejecución local, se detuvo el SGA simulado y se enviaron
+20 postulaciones válidas de estudiantes sintéticos distintos para una
+misma asignatura. Postulaciones respondió \texttt{201} a los 20 envíos
+y conservó los 20 registros con estado «Enviada» y validación
+«Validación pendiente». Se volvió a enviar una de las postulaciones
+y el servicio devolvió \texttt{409}. El total se mantuvo en 20.
+
+Al recuperar el SGA, con el intervalo de revalidación configurado
+en 60 segundos, los 20 registros pasaron a «Validada» con el
+resultado \texttt{ELEGIBLE}. Se observó la revalidación completa
+15,7 segundos después de confirmar que el SGA volvía a responder.
+La comparación de los inventarios confirmó los mismos 20
+identificadores, con \textbf{0 pérdidas y 0 duplicados}. El registro
+del SGA mostró 22 lecturas, incluidas las comprobaciones de arranque,
+y 0 escrituras.
+
+Las mediciones de carga siguen pendientes. Las capturas originales
+se guardarán en \path{evidencias/capturas/} y mostrarán los servicios
+en ejecución, el usuario, el equipo y la fecha y hora del sistema.
