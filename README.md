@@ -14,7 +14,7 @@ El SGAC es una propuesta para gestionar convocatorias, postulaciones, evaluació
 | MUÑOZ VERA MELANIE MICHELLE | Líder de Desarrollo y Responsable de Calidad (dos roles) |
 | QUINTERO RICO LUIS DAVID | Responsable de Documentación |
 
-**Periodo académico:** PENDIENTE DE DEFINIR. Confirmación institucional de los roles: PENDIENTE DE DEFINIR.
+**Periodo académico consignado en la portada:** octubre de 2026 – febrero de 2027. Confirmación institucional de los roles: PENDIENTE DE DEFINIR.
 
 **Link del video:** https://drive.google.com/drive/folders/1cz2WF7eTlp2MVnRtzyxq3t1MDS0v-Pkc?usp=drive_link
 
@@ -106,22 +106,24 @@ El resultado es `docs/main.pdf`. En MiKTeX, las versiones de `biber` y `biblatex
 
 ## Estado de la documentación para E1
 
-El informe se construye en un solo documento LaTeX, desde `docs/main.tex`. El estado del trabajo debe distinguir los archivos ya integrados en `main` de los borradores preparados en ramas de trabajo.
+El informe se integra desde [`docs/main.tex`](docs/main.tex) en un solo documento LaTeX. Las secciones de contexto, objetivos y los doce requisitos funcionales están incorporadas a `main` mediante el [PR #11](https://github.com/DarwinDevCode/AD_TA-PFC-E1/pull/11). El levantamiento se integró mediante el [PR #10](https://github.com/DarwinDevCode/AD_TA-PFC-E1/pull/10). La sección de calidad, el esqueleto y las capturas también están integrados.
 
-| Entregable | Archivo o ubicación | Situación |
+| Entregable | Archivo o evidencia | Estado registrado |
 | --- | --- | --- |
-| Base documental | `docs/main.tex`, `docs/preambulo.tex`, `docs/main.pdf` | Estructura inicial integrada; el PDF final debe regenerarse tras fusionar cambios. |
-| Levantamiento | [`docs/E1-levantamiento-entrevista`](https://github.com/DarwinDevCode/AD_TA-PFC-E1/tree/docs/E1-levantamiento-entrevista/evidencias/levantamiento) | Guion y acta preparados en una rama. Falta contrastar las respuestas, acreditar conformidad y autorización de publicación. |
-| Contexto, objetivos y requisitos funcionales | `docs/secciones/02-contexto-problema.tex`, `03-objetivos.tex`, `05-requisitos-funcionales.tex` | Borradores documentales; los requisitos y cifras sin respaldo institucional requieren validación. |
-| Presentación y planificación | `docs/secciones/00-portada.tex`, `01-resumen-ejecutivo.tex`, `13-plan-proyecto.tex` | Elaboración y revisión en curso; faltan algunos datos oficiales y el enlace de GitHub Projects. |
-| Aportes y uso de IA | `docs/secciones/15-tabla-aportes.tex`, `16-declaracion-ia.tex` | Deben completarse con los enlaces y las declaraciones reales de todos los integrantes. |
-| Requisitos no funcionales y riesgos | `docs/secciones/06-requisitos-no-funcionales.tex`, `12-analisis-riesgos.tex` | Responsabilidad de Desarrollo y Calidad; pendiente de integración definitiva. |
+| Documento y PDF integrado | [`docs/main.tex`](docs/main.tex), [`docs/main.pdf`](docs/main.pdf) | PDF actualizado en el [PR #56](https://github.com/DarwinDevCode/AD_TA-PFC-E1/pull/56); falta la comprobación en clon limpio del issue #38. |
+| Levantamiento | [Guion y acta](evidencias/levantamiento/) | Archivos publicados en `main`. La firma o grabación con consentimiento y el contraste de respuestas reales siguen pendientes de acreditar. |
+| Contexto, objetivos y doce RF | [Secciones 02, 03 y 05](docs/secciones/) | Redactados e integrados. La trazabilidad a fuentes reales se revisa en el [issue #6](https://github.com/DarwinDevCode/AD_TA-PFC-E1/issues/6). |
+| Plan, portada, aportes e IA | [Secciones 00, 13, 15 y 16](docs/secciones/) | Integradas, con tareas de verificación documental en #35, #36 y #37; Darwin debe completar su declaración individual si corresponde. |
+| Requisitos no funcionales y riesgos | [Secciones 06 y 12](docs/secciones/) | Integrados con metas cuantificadas provisionales. |
+| Servicios y pruebas | [`src/`](src/) | Servicio A, servicio B, SGA simulado y prueba de comunicación reproducible disponibles. |
+| Capturas | [Tres capturas de ejecución](evidencias/capturas/) | Registradas en el [PR #55](https://github.com/DarwinDevCode/AD_TA-PFC-E1/pull/55). |
+| Video | [Carpeta de video](https://drive.google.com/drive/folders/1cz2WF7eTlp2MVnRtzyxq3t1MDS0v-Pkc?usp=drive_link) | Enlace incorporado al repositorio; verificar el acceso anónimo y la duración de 5 a 7 minutos. |
 
-Las cifras técnicas de capacidad, respuesta, disponibilidad y recuperación son metas propuestas, no resultados medidos en la UTEQ ni declaraciones verificadas de la entrevista.
+Las cifras de capacidad, disponibilidad, rendimiento y recuperación son **metas de diseño propuestas**; no equivalen a mediciones institucionales de la UTEQ ni a respuestas comprobadas del entrevistado.
 
 ## Comprobaciones para el cierre
 
-Antes de entregar E1, verificar la evidencia del levantamiento con el consentimiento requerido, completar las secciones y referencias, ejecutar el esqueleto desde un clon limpio, actualizar la bitácora con sesiones reales, comprobar el PDF compilado y agregar el enlace al video grupal. El PDF de identificación para el SGA debe tener una sola página.
+Antes de entregar E1, acreditar la entrevista con firma o grabación consentida, completar las sesiones reales de la bitácora, comprobar el esqueleto y la compilación LaTeX desde un clon limpio, revisar los DOI y verificar que el video ya enlazado sea público y cumpla la duración exigida. El PDF de identificación para el SGA debe tener una sola página.
 
 ## Organización y trazabilidad
 
@@ -129,4 +131,4 @@ Antes de entregar E1, verificar la evidencia del levantamiento con el consentimi
 - [Decisiones de arquitectura](docs/adr/).
 - [Documento LaTeX](docs/main.tex).
 - [Trabajo de levantamiento](evidencias/levantamiento/): la conformidad de la entrevista debe acreditarse antes de declararlo validado.
-- **Tablero GitHub Projects:** PENDIENTE DE DEFINIR.
+- **Tablero GitHub Projects E1–E4:** [SGAC — Plan del proyecto](https://github.com/users/DarwinDevCode/projects/14). El enlace específico a la vista «Cronograma» sigue pendiente de comprobación.
