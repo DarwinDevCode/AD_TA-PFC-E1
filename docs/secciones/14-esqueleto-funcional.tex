@@ -3,3 +3,60 @@
 % demostracion de comunicacion, pruebas y evidencias verificables.
 % La ejecucion reproducible se documenta en el README al existir servicios.
 \section{Esqueleto funcional}
+\label{sec:esqueleto-funcional}
+
+\textbf{Estado del borrador.} Ya se prepararon los casos y los datos
+sintéticos. El mecanismo de comunicación, el contrato de interfaz y los
+resultados de las pruebas están pendientes.
+
+\subsection{Servicios y flujo previsto}
+
+El esqueleto de E1 demostrará una consulta de elegibilidad académica entre
+dos servicios, según la propuesta del ADR-001. El servicio B
+(postulaciones) solicitará al servicio A (elegibilidad) la verificación
+académica de un estudiante para una asignatura (RF-03). Elegibilidad
+consultará datos de un SGA simulado de solo lectura y devolverá el
+resultado a postulaciones. Los datos sintéticos permiten preparar
+escenarios de matrícula, nota de la asignatura y comparación de
+promedios.
+
+El mecanismo con el que se realizará el intercambio se documentará cuando
+se apruebe el ADR-002. El contrato definirá la operación, sus datos de
+entrada y salida y el tratamiento de respuestas incompletas o de
+indisponibilidad del SGA simulado. Las rutas definitivas de los servicios
+se confirmarán con el C4 de contenedores. Las instrucciones de arranque y
+ejecución se documentarán en la sección «Ejecución del esqueleto» del
+\texttt{README.md}.
+
+\subsection{Archivos y verificación prevista}
+
+\begin{itemize}
+  \item \texttt{src/contrato/}: carpeta prevista para el contrato de
+    interfaz, pendiente de publicación.
+  \item \path{src/pruebas/casos-servicio-a.md}: borrador de 11 casos y
+    8 registros sintéticos. Incluye consultas con datos completos,
+    valores límite, registros faltantes y caída y recuperación del
+    SGA simulado.
+  \item \path{src/pruebas/matriz-pruebas-rnf.md}: criterios de
+    verificación de los requisitos no funcionales. Para este flujo se
+    prevé verificar la conservación de la postulación durante una
+    interrupción (RNF-04) y la ausencia de escrituras hacia el SGA
+    (RNF-10).
+\end{itemize}
+
+La primera prueba de comunicación partirá del caso SA-01, con datos
+completos. Se comprobará que postulaciones recibe el resultado esperado
+de elegibilidad según el contrato. Si este contempla una respuesta de
+incumplimiento, se usará también el caso SA-03, con una nota inferior al
+mínimo. Los escenarios de interrupción y solo lectura se comprobarán
+mediante SA-10 y SA-11, respectivamente. La conservación de una
+postulación en «Validación pendiente» se verificará en postulaciones
+durante la prueba del flujo completo de RNF-04.
+
+\subsection{Resultados y evidencias}
+
+\textbf{Pendientes de ejecución.} Para cada ensayo se registrarán la
+versión probada, el caso, el resultado esperado, el resultado observado
+y la evidencia. Las capturas originales se guardarán en
+\texttt{evidencias/capturas/} y mostrarán ambos servicios en marcha,
+el intercambio, el usuario, el equipo y la fecha y hora del sistema.
