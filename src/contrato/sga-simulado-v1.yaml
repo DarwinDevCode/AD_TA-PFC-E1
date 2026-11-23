@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: SGA simulado del SGAC
+  version: 1.0.0
+  description: |
+    Contrato de la interacción I-06: el servicio de elegibilidad (`servicio-a-elegibilidad`) lee el registro
+    académico de un estudiante en el SGA simulado, que reemplaza al SGA de la UTEQ en E1 a E4.
+
+    Reglas del contrato:
+    - El SGA simulado solo expone operaciones de lectura (RNF-10) y registra cada solicitud recibida
+      con su método y ruta, para comprobar que no hay escrituras (SA-11).
+    - Devuelve los datos tal como están registrados; la evaluación de los requisitos de RF-03 la hace
+      elegibilidad.
+    - Un dato inexistente se devuelve como `null`.
+    - Las notas y promedios se expresan con dos decimales.
+    - Elegibilidad espera hasta 2 s; si no hay respuesta o la conexión se rechaza, responde 503 a postulaciones.
+servers:
+  - url: http://localhost:8090/api/v1
+    description: SGA simulado en el esqueleto de E1
+paths:
+  /estudiantes/{estudianteId}/registro-academico:
+    get:
+      operationId: consultarRegistroAcademico
+      summary: Devuelve la matrícula, la nota de la asignatura y los promedios de un estudiante.
+      parameters:
+        - name: estudianteId
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^[A-Za-z0-9-]{1,20}$'
+            example: EST-001
+        - name: asignatura
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: '^[A-Za-z0-9-]{1,20}$'
+            example: ASIG-01
+      responses:
+        '200':
+          description: Registro académico del estudiante.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistroAcademico'
+              examples:
+                EST-001:
+                  value:
+                    estudianteId: EST-001
+                    asignatura: ASIG-01
+                    matricula: REGULAR
+                    nota: 9.25
+                    promedio: 8.70
+                    promedioCarrera: 8.20
+                EST-008:
+                  value:
+                    estudianteId: EST-008
+                    asignatura: ASIG-01
+                    matricula: REGULAR
+                    nota: null
+                    promedio: 8.70
+                    promedioCarrera: 8.20
+        '404':
+          description: El estudiante no tiene registro en el SGA.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [codigo, mensaje]
+                properties:
+                  codigo:
+                    type: string
+                    enum: [ESTUDIANTE_NO_ENCONTRADO]
+                  mensaje:
+                    type: string
+              example:
+                codigo: ESTUDIANTE_NO_ENCONTRADO
+                mensaje: No existe registro académico del estudiante EST-999.
+components:
+  schemas:
+    RegistroAcademico:
+      type: object
+      required: [estudianteId, asignatura, matricula, nota, promedio, promedioCarrera]
+      properties:
+        estudianteId:
+          type: string
+        asignatura:
+          type: string
+        matricula:
+          type: string
+          nullable: true
+          enum: [REGULAR, NO_REGULAR, null]
+        nota:
+          type: number
+          nullable: true
+        promedio:
+          type: number
+          nullable: true
+        promedioCarrera:
+          type: number
+          nullable: true
+          description: Promedio de la carrera en el periodo anterior.

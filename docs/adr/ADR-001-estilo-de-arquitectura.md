@@ -2,7 +2,7 @@
 
 ## Estado
 
-Propuesto
+Aceptado
 
 ## Fecha
 
@@ -64,7 +64,7 @@ Pocos servicios, uno por capacidad con carga o ritmo de cambio propio, cada uno 
 
 ## Decisión tomada
 
-Se propone la opción D. Los usuarios acceden a los servicios mediante una aplicación web. El esqueleto de E1 implementa dos servicios: postulaciones (servicio B, `src/servicio-b-postulaciones/`), que consulta a elegibilidad (servicio A, `src/servicio-a-elegibilidad/`, con el SGA simulado). Evaluación, seguimiento y notificaciones se incorporan en E2 a E4. Dentro de cada servicio se aplica la organización modular de la opción B, con los principios de modularidad y ocultamiento de información que la literatura asocia al diseño de microservicios [3].
+Se adopta la opción D. Los usuarios acceden a los servicios mediante una aplicación web. El esqueleto de E1 implementa dos servicios: postulaciones (servicio B, `src/servicio-b-postulaciones/`), que consulta a elegibilidad (servicio A, `src/servicio-a-elegibilidad/`, con el SGA simulado). Evaluación, seguimiento y notificaciones se incorporan en E2 a E4. Dentro de cada servicio se aplica la organización modular de la opción B, con los principios de modularidad y ocultamiento de información que la literatura asocia al diseño de microservicios [3].
 
 | Requisito | Cómo lo atiende la opción D | Por qué no basta la opción B |
 | --- | --- | --- |
