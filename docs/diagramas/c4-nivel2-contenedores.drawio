@@ -13,7 +13,7 @@
         <mxCell id="web" value="&lt;b&gt;Aplicación web&lt;/b&gt;&lt;br&gt;[Contenedor: navegador]&lt;br&gt;&lt;br&gt;Interfaz de los seis roles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="610" y="180" width="240" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="post" value="&lt;b&gt;Postulaciones&lt;/b&gt;&lt;br&gt;[Contenedor: servicio-b-postulaciones]&lt;br&gt;&lt;br&gt;Convocatorias, postulaciones, documentos y estados" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+        <mxCell id="post" value="&lt;b&gt;Postulaciones&lt;/b&gt;&lt;br&gt;[Contenedor: servicio-b-postulaciones, Python y FastAPI]&lt;br&gt;&lt;br&gt;Convocatorias, postulaciones, documentos y estados" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="330" y="380" width="230" height="110" as="geometry" />
         </mxCell>
         <mxCell id="eval" value="&lt;b&gt;Evaluación&lt;/b&gt;&lt;br&gt;[Contenedor: servicio]&lt;br&gt;&lt;br&gt;Méritos, oposición, consolidación y resultados" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
@@ -25,7 +25,7 @@
         <mxCell id="eleg" value="&lt;b&gt;Elegibilidad&lt;/b&gt;&lt;br&gt;[Contenedor: servicio-a-elegibilidad]&lt;br&gt;&lt;br&gt;Consulta de requisitos académicos" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="60" y="580" width="200" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="dbp" value="&lt;b&gt;BD postulaciones&lt;/b&gt;&lt;br&gt;[Base de datos]" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="dbp" value="&lt;b&gt;BD postulaciones&lt;/b&gt;&lt;br&gt;[Base de datos: SQLite]" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="390" y="580" width="140" height="95" as="geometry" />
         </mxCell>
         <mxCell id="dbe" value="&lt;b&gt;BD evaluación&lt;/b&gt;&lt;br&gt;[Base de datos]" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
@@ -61,7 +61,7 @@
             <mxPoint x="0" y="0" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="i04" value="I-04: Registra sesiones e informes&lt;br&gt;[sincrónica] REST" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="web" target="seg">
+        <mxCell id="i04" value="I-04: Registra planificación, sesiones e informes&lt;br&gt;[sincrónica] REST" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="web" target="seg">
           <mxGeometry width="170" relative="1" as="geometry">
             <mxPoint x="0" y="0" as="offset" />
           </mxGeometry>
@@ -86,7 +86,7 @@
             <mxPoint x="62" y="-95" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="i09" value="I-09: Publica resultados&lt;br&gt;[asincrónica] mensajería" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;labelBackgroundColor=#FFFFFF;dashed=1;dashPattern=6 4;exitX=0.087;exitY=1;exitDx=0;exitDy=0;entryX=0.41;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="eval" target="mq">
+        <mxCell id="i09" value="I-09: Publica citaciones y resultados&lt;br&gt;[asincrónica] mensajería" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;labelBackgroundColor=#FFFFFF;dashed=1;dashPattern=6 4;exitX=0.087;exitY=1;exitDx=0;exitDy=0;entryX=0.41;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="eval" target="mq">
           <mxGeometry width="150" relative="1" as="geometry">
             <mxPoint x="0" y="75" as="offset" />
           </mxGeometry>
