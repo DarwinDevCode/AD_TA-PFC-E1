@@ -38,3 +38,37 @@ La Figura~\ref{fig:c4-contexto} presenta el SGAC como un único sistema, las sei
     \bottomrule
   \end{tabularx}
 \end{table}
+
+\subsection{Nivel 2: contenedores}
+
+La Figura~\ref{fig:c4-contenedores} descompone el SGAC según la propuesta de ADR-001 y ADR-002. Las flechas continuas son interacciones sincrónicas y las discontinuas, asincrónicas; cada una lleva el identificador que usa el modelo de comunicación. El SGA se representa con un servicio simulado de solo lectura. El servicio de IA y la firma electrónica no tienen contenedores porque quedan fuera del alcance de E1 a E4. Los servicios del esqueleto corresponden a las carpetas \texttt{src/servicio-a-elegibilidad/} y \texttt{src/servicio-b-postulaciones/}. La Tabla~\ref{tab:c4-contenedores} resume la responsabilidad de cada contenedor.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,width=\textwidth]{c4-nivel2-contenedores.pdf}
+  \caption{Diagrama de contenedores del SGAC (C4 nivel 2)}
+  \label{fig:c4-contenedores}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Contenedores del SGAC}
+  \label{tab:c4-contenedores}
+  \small
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.4cm}
+                                  >{\raggedright\arraybackslash}X
+                                  >{\raggedright\arraybackslash}p{2.7cm}
+                                  >{\raggedright\arraybackslash}p{2.4cm}@{}}
+    \toprule
+    \textbf{Contenedor} & \textbf{Responsabilidad} & \textbf{Datos propios} & \textbf{Requisitos} \\
+    \midrule
+    Aplicación web & Interfaz de los seis roles en el navegador & Ninguno & RNF-06, RNF-09, RNF-12 \\
+    Postulaciones (servicio B) & Convocatorias, postulaciones, revisión de documentos y estados & BD postulaciones & RF-01, RF-02, RF-04, RF-05 \\
+    Elegibilidad (servicio A) & Consulta de solo lectura de matrícula, nota y promedio en el SGA & Ninguno & RF-03, RNF-04, RNF-10 \\
+    Evaluación & Méritos, oposición, consolidación y publicación de resultados & BD evaluación & RF-06, RF-07, RF-08 \\
+    Seguimiento & Planificación semanal, sesiones, informes y certificado & BD seguimiento & RF-09 a RF-12 \\
+    Intermediario de mensajes & Recibe los eventos de cambio de estado y los entrega a sus consumidores & Eventos pendientes de entrega & RNF-03, RNF-11 \\
+    Notificaciones & Envía los avisos por rol a la mensajería institucional & Ninguno & RF-05, RF-08, RF-11 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
