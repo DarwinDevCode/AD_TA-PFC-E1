@@ -16,6 +16,8 @@ El SGAC es una propuesta para gestionar convocatorias, postulaciones, evaluació
 
 **Periodo académico:** PENDIENTE DE DEFINIR. Confirmación institucional de los roles: PENDIENTE DE DEFINIR.
 
+**Link del video:** https://drive.google.com/drive/folders/1cz2WF7eTlp2MVnRtzyxq3t1MDS0v-Pkc?usp=drive_link
+
 ## Estructura del repositorio
 
 - `src/`: contratos, servicios y pruebas del esqueleto funcional.
