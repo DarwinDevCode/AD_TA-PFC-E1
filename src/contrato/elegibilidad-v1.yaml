@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
   title: Servicio de elegibilidad del SGAC
-  version: 1.0.0-propuesto
+  version: 1.0.0
   description: |
     Contrato de la interacción I-05: el servicio de postulaciones (servicio B, `servicio-b-postulaciones`)
     consulta al servicio de elegibilidad (servicio A, `servicio-a-elegibilidad`) los requisitos académicos
     del estudiante registrados en el SGA (RF-03).
 
-    Estado: propuesto con ADR-002. Pasa a vigente cuando el equipo acepte ADR-002.
+    Elegibilidad obtiene los datos académicos del SGA simulado según `src/contrato/sga-simulado-v1.yaml` (I-06).
 
     Reglas del contrato:
     - Solo se exponen operaciones de lectura; elegibilidad no escribe en el SGA (RNF-10).
@@ -17,8 +17,8 @@ info:
     - Las fechas se expresan en UTC con formato ISO 8601.
     - Elegibilidad responde en 2 s o menos. Si el SGA no responde en ese tiempo, devuelve 503.
     - Postulaciones espera la respuesta hasta 3 s. Ante 503, error de conexión o tiempo agotado,
-      registra la postulación en «Validación pendiente» y repite la consulta cada 60 s hasta recibir
-      200 o 404 (RNF-04).
+      registra la postulación como «Enviada» con validación en «Validación pendiente» y repite la consulta
+      cada 60 s hasta recibir 200 o 404 (RNF-04).
 servers:
   - url: http://localhost:8081/api/v1
     description: Servicio de elegibilidad en el esqueleto de E1
