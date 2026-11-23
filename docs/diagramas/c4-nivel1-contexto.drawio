@@ -1,95 +1,95 @@
 <mxfile host="app.diagrams.net" compressed="false">
   <diagram id="c4n1-contexto" name="C4 nivel 1 - Contexto">
-    <mxGraphModel dx="1800" dy="1300" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1000" math="0" shadow="0">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1540" pageHeight="980" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="sgac" value="&lt;b&gt;SGAC&lt;/b&gt;&lt;br&gt;[Sistema de software]&lt;br&gt;&lt;br&gt;Sistema de Gestión de Ayudantías de Cátedra de la UTEQ.&lt;br&gt;Gestiona convocatorias, postulaciones, evaluación por méritos y oposición, ejecución, seguimiento y certificación de las ayudantías." style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=3;fontColor=#000000;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="610" y="30" width="240" height="920" as="geometry" />
+        <mxCell id="sgac" value="&lt;b&gt;SGAC&lt;/b&gt;&lt;br&gt;Sistema de Gestión de&lt;br&gt;Ayudantías de Cátedra" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=3;fontColor=#000000;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="660" y="20" width="240" height="900" as="geometry" />
         </mxCell>
-        <mxCell id="p-est" value="&lt;b&gt;Estudiante / Ayudante&lt;/b&gt;&lt;br&gt;[Persona]" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;resizable=0;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="20" y="20" width="170" height="150" as="geometry" />
+        <mxCell id="p-est" value="Estudiante / Ayudante" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="50" width="44" height="84" as="geometry" />
         </mxCell>
-        <mxCell id="r-est-0" value="Envía su postulación: datos personales, carrera, asignatura y documentos" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5267;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.0489;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-est" target="sgac">
+        <mxCell id="p-doc" value="Docente" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="200" width="44" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="p-coord" value="Coordinador de carrera" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="350" width="44" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="p-com" value="Comisión de selección" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="500" width="44" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="p-dec" value="Decano" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="650" width="44" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="p-admin" value="Administrador del sistema" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="800" width="44" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="r-est-0" value="Envía su postulación: datos personales, carrera, asignatura y documentos" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.2500;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.0278;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-est" target="sgac">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-est-1" value="Registra su planificación semanal y sus sesiones: fecha, tema, asistencia, tareas y evidencias" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.4167;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.0722;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-est" target="sgac">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-est-2" value="Notifica estados, observaciones, citaciones, resultados y certificado digital" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.1167;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5833;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-est">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-doc-0" value="Emite el aval del postulante y aprueba u observa los informes mensual y final" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.3333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.2167;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-doc" target="sgac">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-doc-1" value="Envía solicitudes de aval, informes para revisión y notificaciones" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.2611;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5000;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-doc">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-coord-0" value="Publica convocatorias (requisitos, plazos, cupos), agenda del tribunal y observaciones" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.3333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.3833;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-coord" target="sgac">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-coord-1" value="Entrega listados, ranking y actas consolidadas" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.4278;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5000;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-coord">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-com-0" value="Registra puntajes de méritos y oposición, tema sorteado y acta de resultados" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.3333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5500;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-com" target="sgac">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-com-1" value="Presenta los criterios y rúbricas de evaluación publicados" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.5944;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5000;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-com">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-dec-0" value="Aprueba resoluciones y devuelve documentos firmados" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.3333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.7167;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-dec" target="sgac">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-dec-1" value="Presenta resultados consolidados, actas y resoluciones para firma y reportes ejecutivos" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.7611;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5000;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-dec">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-admin-0" value="Configura plantillas, criterios, rúbricas, roles y permisos" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.4167;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.9056;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-admin" target="sgac">
+          <mxGeometry width="440" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-sga" value="&lt;b&gt;SGA de la UTEQ&lt;/b&gt;&lt;br&gt;[Sistema externo]" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="112" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e-msg" value="&lt;b&gt;Mensajería institucional&lt;/b&gt;&lt;br&gt;[Sistema externo]" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="338" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e-ia" value="&lt;b&gt;Servicio de IA&lt;/b&gt;&lt;br&gt;[Sistema externo]" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="562" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e-firma" value="&lt;b&gt;Firma electrónica&lt;/b&gt;&lt;br&gt;[Sistema externo]" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="788" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="r-sga-0" value="Consulta matrícula, promedio, materias aprobadas, carrera, horarios y periodos [solo lectura]" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.1467;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5000;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="e-sga">
           <mxGeometry width="330" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r-est-1" value="Registra actividades: fecha, tema, asistencia, tareas y evidencias" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.7000;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.1033;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-est" target="sgac">
+        <mxCell id="r-msg-0" value="Envía mensajes de aperturas, observaciones, horarios y resultados" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.3978;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5000;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="e-msg">
           <mxGeometry width="330" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r-est-2" value="Notifica estados, observaciones, citaciones, resultados y certificado digital" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.1576;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.8733;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-est">
+        <mxCell id="r-ia-0" value="Envía resumen del caso, sesiones, materiales y evidencias" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.6189;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.3500;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="e-ia">
           <mxGeometry width="330" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p-doc" value="&lt;b&gt;Docente&lt;/b&gt;&lt;br&gt;[Persona]" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;resizable=0;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="20" y="180" width="170" height="150" as="geometry" />
-        </mxCell>
-        <mxCell id="r-doc-0" value="Emite el aval del postulante y aprueba u observa los informes mensual y final" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.6133;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.2500;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-doc" target="sgac">
+        <mxCell id="r-ia-1" value="Devuelve borradores de documentos, alertas de plazos y respuestas" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.6500;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.6744;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="e-ia" target="sgac">
           <mxGeometry width="330" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r-doc-1" value="Envía solicitudes de aval, informes para revisión y notificaciones" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.3043;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.7867;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-doc">
+        <mxCell id="r-firma-0" value="Envía actas, informes y resoluciones para firma" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.8700;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.3500;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="e-firma">
           <mxGeometry width="330" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p-coord" value="&lt;b&gt;Coordinador de carrera&lt;/b&gt;&lt;br&gt;[Persona]" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;resizable=0;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="20" y="340" width="170" height="150" as="geometry" />
-        </mxCell>
-        <mxCell id="r-coord-0" value="Publica convocatorias (requisitos, plazos, cupos), agenda del tribunal y observaciones" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.6133;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.4239;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-coord" target="sgac">
+        <mxCell id="r-firma-1" value="Devuelve el documento firmado con sus metadatos" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.6500;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.9256;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="e-firma" target="sgac">
           <mxGeometry width="330" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r-coord-1" value="Entrega listados, ranking y actas consolidadas" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.4783;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.7867;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-coord">
-          <mxGeometry width="330" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="p-com" value="&lt;b&gt;Comisión de selección&lt;/b&gt;&lt;br&gt;[Persona]" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;resizable=0;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="20" y="500" width="170" height="150" as="geometry" />
-        </mxCell>
-        <mxCell id="r-com-0" value="Registra puntajes de méritos y oposición, tema sorteado y acta de resultados" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.6133;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5978;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-com" target="sgac">
-          <mxGeometry width="330" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r-com-1" value="Presenta los criterios y rúbricas de evaluación publicados" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.6522;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.7867;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-com">
-          <mxGeometry width="330" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="p-dec" value="&lt;b&gt;Decano&lt;/b&gt;&lt;br&gt;[Persona]" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;resizable=0;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="20" y="660" width="170" height="150" as="geometry" />
-        </mxCell>
-        <mxCell id="r-dec-0" value="Aprueba resoluciones y devuelve documentos firmados" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.6133;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.7717;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-dec" target="sgac">
-          <mxGeometry width="330" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r-dec-1" value="Presenta resultados consolidados, actas y resoluciones para firma y reportes ejecutivos" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.8261;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.7867;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="p-dec">
-          <mxGeometry width="330" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="p-admin" value="&lt;b&gt;Administrador del sistema&lt;/b&gt;&lt;br&gt;[Persona]" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;resizable=0;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="20" y="820" width="170" height="150" as="geometry" />
-        </mxCell>
-        <mxCell id="r-admin-0" value="Configura plantillas, criterios, rúbricas, roles y permisos" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.7000;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.9728;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="p-admin" target="sgac">
-          <mxGeometry width="330" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e-sga" value="&lt;b&gt;SGA de la UTEQ&lt;/b&gt;&lt;br&gt;[Sistema externo]&lt;br&gt;&lt;br&gt;Sistema de Gestión Académica" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="1250" y="85" width="230" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="r-sga-0" value="Consulta datos académicos: matrícula, promedio, materias aprobadas, carrera, horarios y periodos [solo lectura]" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.1196;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5000;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="e-sga">
-          <mxGeometry width="320" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e-msg" value="&lt;b&gt;Mensajería institucional&lt;/b&gt;&lt;br&gt;[Sistema externo]&lt;br&gt;&lt;br&gt;Envío de avisos a los usuarios" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="1250" y="325" width="230" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="r-msg-0" value="Envía mensajes transaccionales: aperturas, observaciones, horarios y resultados" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.3804;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5000;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="e-msg">
-          <mxGeometry width="320" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e-ia" value="&lt;b&gt;Servicio de IA&lt;/b&gt;&lt;br&gt;[Sistema externo]&lt;br&gt;&lt;br&gt;API de inteligencia artificial" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="1250" y="565" width="230" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="r-ia-0" value="Envía resumen del caso, sesiones, materiales y evidencias" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.6141;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.2727;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="e-ia">
-          <mxGeometry width="320" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r-ia-1" value="Devuelve borradores de convocatorias, actas e informes, alertas de plazos y respuestas" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.7273;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.6685;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="e-ia" target="sgac">
-          <mxGeometry width="320" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e-firma" value="&lt;b&gt;Firma electrónica&lt;/b&gt;&lt;br&gt;[Sistema externo]&lt;br&gt;&lt;br&gt;Servicio de firma de documentos" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="1250" y="805" width="230" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="r-firma-0" value="Envía actas, informes y resoluciones para firma" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.8750;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.2727;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sgac" target="e-firma">
-          <mxGeometry width="320" relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r-firma-1" value="Devuelve el documento firmado con sus metadatos de firma" style="endArrow=blockThin;endFill=1;html=1;whiteSpace=wrap;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=12;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.7273;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.9293;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="e-firma" target="sgac">
-          <mxGeometry width="320" relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
