@@ -6,5 +6,5 @@ Usa la convención de nombres `ADR-NNN-titulo-en-minusculas-con-guiones.md`, con
 
 | ADR | Decisión | Estado |
 | --- | --- | --- |
-| ADR-001 | Estilo de arquitectura | Pendiente |
-| ADR-002 | Mecanismo de comunicación principal | Pendiente |
+| ADR-001 | Estilo de arquitectura | Aceptado |
+| ADR-002 | Mecanismo de comunicación principal | Aceptado |

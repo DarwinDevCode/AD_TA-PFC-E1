@@ -2,7 +2,7 @@
 
 ## Estado
 
-Propuesto
+Aceptado
 
 ## Fecha
 
@@ -59,8 +59,9 @@ Fuente: https://github.com/jcedenoi4/GA-SUM-02
 
 ## Decisión tomada
 
-1. **Mecanismo principal: REST sobre HTTP con JSON** para las interacciones sincrónicas I-02 a I-07. I-05 sigue el contrato `src/contrato/elegibilidad-v1.yaml`.
-2. **Mensajería asincrónica con intermediario** para las interacciones I-08 a I-13. Se incorpora con notificaciones y seguimiento (E2 a E4); el esqueleto de E1 no la usa.
+1. **Mecanismo principal: REST sobre HTTP con JSON** para las interacciones sincrónicas I-02 a I-07. I-05 sigue el contrato `src/contrato/elegibilidad-v1.yaml` e I-06, el contrato `src/contrato/sga-simulado-v1.yaml`.
+2. **Mensajería asincrónica con RabbitMQ** como intermediario para las interacciones I-08 a I-13. Se incorpora con notificaciones y seguimiento (E2 a E4); el esqueleto de E1 no la usa.
+3. **Implementación del esqueleto:** postulaciones, elegibilidad y el SGA simulado se implementan en Python 3.12 con FastAPI y se ejecutan en los puertos 8080, 8081 y 8090. Postulaciones consulta con HTTPX y guarda sus datos en SQLite.
 
 Se elige REST frente a gRPC porque I-02 a I-04 parten del navegador (RNF-12) y porque, según PE-U1, la diferencia de latencia entre protocolos es menor a 1 ms frente a un umbral de 300 ms (RNF-01). La mensajería no es el mecanismo principal porque RF-03 y RF-05 necesitan respuesta inmediata.
 
@@ -72,12 +73,13 @@ Los servicios que publican eventos (I-08 a I-10) los guardan primero en su propi
 
 - Positivas:
   - Un solo mecanismo para todas las consultas y para la aplicación web, verificable con herramientas comunes.
-  - El contrato OpenAPI de I-05 es independiente del lenguaje: postulaciones está implementado en Python 3.12 con FastAPI y HTTPX, y elegibilidad puede implementarse con la tecnología que fije el Líder de Desarrollo.
+  - Los tres procesos del esqueleto comparten lenguaje, dependencias y forma de ejecución, lo que simplifica las instrucciones del README y la prueba de comunicación.
+  - Los contratos OpenAPI de I-05 e I-06 permiten programar y probar cada servicio por separado.
   - Los avisos no bloquean la recepción de postulaciones y no se pierden si el intermediario falla.
 - Negativas:
   - Postulaciones depende en línea de elegibilidad; la mitigan el tiempo de espera y la validación pendiente.
   - La latencia de REST debe medirse en el esqueleto para confirmar RNF-01.
-  - El intermediario de mensajes y el registro de eventos pendientes agregan componentes a partir de E2.
+  - RabbitMQ y el registro de eventos pendientes agregan componentes a partir de E2.
 
 ## Requisitos relacionados
 
@@ -87,3 +89,4 @@ RF-03, RF-05, RF-08, RF-11; RNF-01, RNF-03, RNF-04, RNF-11, RNF-12.
 
 1. Equipo CMSZ, «GA-SUM-02: comunicación entre procesos distribuidos con sockets TCP y gRPC (PE-U1)», repositorio GitHub, 2026. https://github.com/jcedenoi4/GA-SUM-02
 2. Contrato de I-05: `src/contrato/elegibilidad-v1.yaml`.
+3. Contrato de I-06: `src/contrato/sga-simulado-v1.yaml`.
