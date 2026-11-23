@@ -1,5 +1,45 @@
 % Responsable: QUINTERO RICO LUIS DAVID.
-% Exigencia: diez o mas requisitos funcionales como historias de usuario.
-% Cada historia: ID RF-NN, criterios de aceptacion, prioridad y fuente.
-% Respaldar la fuente con respuestas concretas del levantamiento real.
+% Propuestas trazadas al antecedente. Falta confirmar cada RF en entrevista real.
 \section{Requisitos funcionales}
+\label{sec:requisitos-funcionales}
+
+Se proponen doce historias de usuario, organizadas por las etapas del SGAC y compatibles con las capacidades de negocio definidas en ADR-001. Los criterios de aceptación describen comportamientos verificables, no funciones ya implementadas. La fuente documental inicial es el estudio de requisitos anterior~\cite{sgacAntecedente}; \textbf{la validación con respuestas reales de la entrevista de esta entrega está pendiente}. La referencia a dicho antecedente no sustituye el levantamiento obligatorio.
+
+\begingroup\footnotesize
+\begin{longtable}{@{}p{.06\textwidth}p{.31\textwidth}p{.36\textwidth}p{.07\textwidth}p{.08\textwidth}@{}}
+\caption{Requisitos funcionales propuestos para el SGAC}\label{tab:rf}\\
+\toprule
+\textbf{ID} & \textbf{Historia de usuario} & \textbf{Criterios de aceptación} & \textbf{Prior.} & \textbf{Fuente}\\
+\midrule\endfirsthead
+\toprule\textbf{ID} & \textbf{Historia de usuario} & \textbf{Criterios de aceptación} & \textbf{Prior.} & \textbf{Fuente}\\\midrule\endhead
+\bottomrule\endfoot
+RF-01 & Como coordinador, quiero publicar convocatorias con requisitos, cupos y fechas para informar las postulaciones. & No publicar si falta asignatura, cupos o fechas; mostrar convocatoria y plazos; emitir aviso al publicarla. & Alta & Anteced. \\
+\addlinespace
+RF-02 & Como estudiante, quiero enviar mi solicitud con los documentos requeridos para participar en el concurso. & Aceptar solo dentro de plazo; validar formato de anexos; confirmar recepción y mostrar estado «Enviada». & Alta & Anteced. \\
+\addlinespace
+RF-03 & Como coordinador, quiero comprobar matrícula, nota y promedio mediante consulta al SGA para revisar requisitos académicos. & Solo consultas de lectura; registrar resultado y fecha; distinguir «Cumple», «No cumple» y «Dato faltante». & Alta & Anteced. \\
+\addlinespace
+RF-04 & Como coordinador, quiero revisar anexos y registrar observaciones para solicitar correcciones al postulante. & Marcar cada documento «Aprobado» u «Observado»; mostrar observación al estudiante; conservar revisor y fecha. & Alta & Anteced. \\
+\addlinespace
+RF-05 & Como estudiante, quiero consultar mi estado y recibir avisos para seguir el trámite. & Mostrar el último estado registrado; avisar tras un cambio; permitir consultar observaciones. & Alta & Anteced. \\
+\addlinespace
+RF-06 & Como miembro de la comisión, quiero calificar los méritos por rubro para aplicar la misma rúbrica. & Restringir puntajes a límites configurados; rechazar negativos; registrar evaluador y fecha. & Alta & Anteced. \\
+\addlinespace
+RF-07 & Como miembro de la comisión, quiero sortear tema y registrar la oposición para dejar constancia del concurso. & Sortear un tema del sílabo; registrar citación; validar los máximos de puntajes de la rúbrica. & Alta & Anteced. \\
+\addlinespace
+RF-08 & Como coordinador, quiero consolidar calificaciones y publicar resultados para establecer un orden de mérito trazable. & Sumar méritos y oposición; aplicar elegibilidad y desempates aprobados; registrar y notificar el resultado. & Alta & Anteced. \\
+\addlinespace
+RF-09 & Como ayudante, quiero registrar sesiones, tareas, asistencia y evidencias para respaldar mis actividades. & Exigir fecha y tema; vincular sesión con ayudantía; permitir revisión al docente. & Media & Anteced. \\
+\addlinespace
+RF-10 & Como ayudante, quiero validar mi planificación semanal para no superar la carga permitida. & Rechazar solapamientos; comprobar tope semanal definido en la normativa vigente; informar la causa del rechazo. & Media & Anteced. \\
+\addlinespace
+RF-11 & Como docente, quiero aprobar u observar el informe mensual para dejar constancia de la revisión. & Mostrar sesiones y evidencias; registrar aprobación u observación; notificar al ayudante. & Media & Anteced. \\
+\addlinespace
+RF-12 & Como ayudante, quiero obtener el certificado tras las aprobaciones correspondientes para acreditar mi labor. & Exigir cierre e informe final aprobados; incluir asignatura, periodo y horas; dejar rastro de autorización. & Media & Anteced. \\
+\end{longtable}
+\endgroup
+
+\subsection{Trazabilidad y validaciones pendientes}
+Las doce historias se corresponden con convocatoria y postulación (RF-01 a RF-05), evaluación (RF-06 a RF-08) y seguimiento y cierre (RF-09 a RF-12). La fuente de la última columna es la revisión documental, no una respuesta atribuida al entrevistado. Antes de dar los RF por confirmados, se debe añadir a cada uno el identificador exacto de la respuesta real del acta o ajustar el requisito si aquella lo contradice.
+
+También deben verificarse la vigencia de los plazos, la rúbrica, el criterio de desempate, el máximo semanal de horas y los permisos del decanato. Los números establecidos en fuentes anteriores no se adoptan automáticamente como normativa vigente. La integración SGA y la gestión de fallos se conectan con RNF-04 y RNF-10; los valores de desempeño pertenecen a la sección de requisitos no funcionales de la responsable de calidad.
